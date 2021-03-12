@@ -7,29 +7,39 @@ public class Point3D {
     private Coordinate y;
     private Coordinate z;
 
+    public static final Point3D ZERO = new Point3D(0, 0, 0);
+
+
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public Point3D(double x, double y, double z) {
-       this.x = x;
+    //להבין
+    public Point3D(double X, double Y, double Z) {
+        x = new Coordinate(X);
+        y = new Coordinate(Y);
+        z = new Coordinate(Z);
     }
 
-    public Point3D  add(Vector){
-
-    }
-
-  public Vector  subtract(Point3D){
-
-    }
-
-    public double distanceSquared(Point3D){
+    public Point3D add(Vector) {
 
     }
 
-    public double distance(Point3D){
+    //לסדר
+    public Vector subtract(Point3D a) {
+
+
+        return vector;
+
+    }
+
+    public double distanceSquared(Point3D) {
+
+    }
+
+    public double distance(Point3D) {
 
     }
 
