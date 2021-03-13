@@ -6,6 +6,8 @@ public class Ray {
     private Point3D p0;
     private Vector dir;
 
+    public Ray()
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
