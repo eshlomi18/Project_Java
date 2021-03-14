@@ -3,47 +3,93 @@ package primitives;
 import java.util.Objects;
 
 public class Point3D {
-    private Coordinate x;
-    private Coordinate y;
-    private Coordinate z;
+    final Coordinate x;
+    final Coordinate y;
+    final Coordinate z;
 
     public static final Point3D ZERO = new Point3D(0, 0, 0);
 
-
+    /**
+     * constructor for Point3D
+     *
+     * @param x coordinate for x axis
+     * @param y coordinate for y axis
+     * @param z coordinate for z axis
+     */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this(x.coord, y.coord, z.coord);
     }
 
-    //להבין
+    /**
+     * constructor for Point3D
+     *
+     * @param X
+     * @param Y
+     * @param Z
+     */
     public Point3D(double X, double Y, double Z) {
         x = new Coordinate(X);
         y = new Coordinate(Y);
         z = new Coordinate(Z);
     }
 
-    public Point3D add(Vector) {
+    /**
+     * Adding a vector to a point
+     *
+     * @param vector The second point
+     * @return New point
+     */
+    public Point3D add(Vector vector) {
+        return new Point3D(
+                x.coord + vector.getHead().x.coord,
+                y.coord + vector.getHead().y.coord,
+                z.coord + vector.getHead().z.coord)
+                ;
 
     }
 
-    //לסדר
-    public Vector subtract(Point3D a) {
+    /**
+     * Vector subtraction
+     *
+     * @param point3D The second point
+     * @return Vector from the second point to the point on which the action is performed
+     */
+    public Vector subtract(Point3D point3D) {
+        if (point3D.equals(this)){
+            throw new IllegalArgumentException("cannot create vector to point (0,0,0)");
+        }
+        double x = point3D.x.coord - this.x.coord;
+        double y = point3D.y.coord - this.y.coord;
+        double z = point3D.z.coord - this.z.coord;
 
+        return new Vector(x, y, z);
+    }
 
-        return vector;
+    /**
+     * @param point3D The second point
+     * @return Square distance between two three-dimensional points
+     */
+    public double distanceSquared(Point3D point3D) {
+        final double x1 = x.coord;
+        final double y1 = y.coord;
+        final double z1 = z.coord;
+        final double x2 = point3D.x.coord;
+        final double y2 = point3D.y.coord;
+        final double z2 = point3D.z.coord;
+        return ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1));
+
 
     }
 
-    public double distanceSquared(Point3D) {
+    /**
+     * @param point3D
+     * @return euclidean distance between 2 3D points
+     */
+    public double distance(Point3D point3D) {
+        return Math.sqrt(distanceSquared(point3D));
 
     }
 
-    public double distance(Point3D) {
-
-    }
-
-    //לבדוק לגבי הערכים האפסיים
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,9 +99,14 @@ public class Point3D {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(x, y, z);
+    public String toString() {
+        return "Point3D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
+
 }
 
 

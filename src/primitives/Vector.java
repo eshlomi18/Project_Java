@@ -2,42 +2,74 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Point3D.ZERO;
+
 public class Vector {
-    private Point3D head;
+    final Point3D head;
 
-  public  Vector add(Vector){
+    public Vector(double X, double Y, double Z) {
+        if (head.equals(ZERO)) {
+            throw new IllegalArgumentException("head of vector cannot be point(0,0,0)");
+        }
 
-    }
+        head = new Point3D(X, Y, Z);
 
-    public  Vector subtract(Vector){
-
-    }
-
-    public Vector scale (double){
 
     }
 
-    public Vector crossProduct(Vector){
+    public Vector add(Vector) {
 
     }
 
-    public double dotProduct(Vector){
+    public Vector subtract(Vector) {
 
     }
 
-    public double lengthSquared(){
+    public Point3D getHead() {
+        return head;
+    }
+
+    public Vector scale(double) {
 
     }
 
-    public double length(){
+    public Vector crossProduct(Vector v) {
+        double u1 = head.x.coord;
+        double u2 = head.y.coord;
+        double u3 = head.z.coord;
+        double v1 = v.head.x.coord;
+        double v2 = v.head.y.coord;
+        double v3 = v.head.z.coord;
+        return new Vector
+                (u2 * v3 - u3 * v2,
+                        u3 * v1 - u1 * v3,
+                        u1 * v2 - u2 * v1);
+    }
+
+    public double dotProduct(Vector v) {
+        double u1 = head.x.coord;
+        double u2 = head.y.coord;
+        double u3 = head.z.coord;
+        double v1 = v.head.x.coord;
+        double v2 = v.head.y.coord;
+        double v3 = v.head.z.coord;
+        return (u1 * v1 + u2 * v2 + u3 * v3);
 
     }
 
-    public Vector normalize(){
+    public double lengthSquared() {
 
     }
 
-    public Vector normalized(){
+    public double length() {
+
+    }
+
+    public Vector normalize() {
+
+    }
+
+    public Vector normalized() {
 
     }
 
@@ -49,8 +81,5 @@ public class Vector {
         return head.equals(vector.head);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(head);
-    }
+
 }
