@@ -3,6 +3,10 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * class plane with 2 different constructors first one with 3 points and the second
+ * with a point and a vector
+ */
 public class Plane implements Geometry {
     private Point3D q0;
     private Vector normal;
