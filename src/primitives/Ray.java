@@ -2,11 +2,25 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Point3D.ZERO;
+
 public class Ray {
     private Point3D p0;
     private Vector dir;
 
-    public Ray()
+    public Ray(Point3D point3D, Vector vector) {
+        p0 = new Point3D(point3D.x, point3D.y, point3D.z);
+        dir = new Vector(vector.getHead());
+        dir.normalize();
+    }
+
+    public Point3D getP0() {
+        return p0;
+    }
+
+    public Vector getDir() {
+        return dir;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -17,7 +31,10 @@ public class Ray {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(p0, dir);
+    public String toString() {
+        return "Ray{" +
+                "p0=" + p0.toString() +
+                ", dir=" + dir.toString() +
+                '}';
     }
 }

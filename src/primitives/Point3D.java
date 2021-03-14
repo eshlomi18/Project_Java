@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Objects;
 
+/**
+ *The class represents a three-dimensional point
+ */
 public class Point3D {
     final Coordinate x;
     final Coordinate y;
@@ -23,9 +26,9 @@ public class Point3D {
     /**
      * constructor for Point3D
      *
-     * @param X
-     * @param Y
-     * @param Z
+     * @param X value for x coordinate
+     * @param Y value for y coordinate
+     * @param Z value for z coordinate
      */
     public Point3D(double X, double Y, double Z) {
         x = new Coordinate(X);
@@ -55,12 +58,12 @@ public class Point3D {
      * @return Vector from the second point to the point on which the action is performed
      */
     public Vector subtract(Point3D point3D) {
-        if (point3D.equals(this)){
+        if (point3D.equals(this)) {
             throw new IllegalArgumentException("cannot create vector to point (0,0,0)");
         }
-        double x = point3D.x.coord - this.x.coord;
-        double y = point3D.y.coord - this.y.coord;
-        double z = point3D.z.coord - this.z.coord;
+        double x = this.x.coord - point3D.x.coord;
+        double y = this.y.coord - point3D.y.coord;
+        double z = this.z.coord - point3D.z.coord;
 
         return new Vector(x, y, z);
     }
