@@ -4,7 +4,7 @@ import static java.lang.System.out;
 import static primitives.Util.*;
 
 /**
- *  אביתר שלומי  325019867 eshlomi15@gmail.com
+ * evyatar shlomi  325019867 eshlomi15@gmail.com
  * samuel verse 1666859 versesamuel@gmail.com
  */
 
