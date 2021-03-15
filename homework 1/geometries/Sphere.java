@@ -3,6 +3,10 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * sphere shape
+ * contain a point for the center and a double number for the radius which is a finite number
+ */
 public class Sphere implements Geometry {
     private Point3D center;
     private Double radius;

@@ -4,6 +4,10 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * geometrical shape that inherit from tube shape
+ * contain beside of tube's fields a finite number height
+ */
 public class Cylinder extends Tube {
     private double height;
 
