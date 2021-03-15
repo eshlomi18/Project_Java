@@ -10,26 +10,42 @@ public class Vector {
     /**
      * mainly used constructor
      *
-     * @param head
+     * @param head The point with which we will initialize head
      */
     public Vector(Point3D head) {
         if (head.equals(ZERO)) {
             throw new IllegalArgumentException("head of vector cannot be point(0,0,0)");
         }
-        // this.head = head;
         this.head = new Point3D(head.x, head.y, head.z);
 
     }
 
+    /**
+     * constructor with double values which will use the main constructor
+     * @param x value for x coordinate
+     * @param y value for y coordinate
+     * @param z value for z coordinate
+     */
     public Vector(double x, double y, double z) {
         this(new Point3D(x, y, z));
 
     }
 
+    /**
+     * constructor with Coordinate values which will use the main constructor
+     * @param x value for x coordinate
+     * @param y value for y coordinate
+     * @param z value for z coordinate
+     */
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
         this(new Point3D(x, y, z));
     }
 
+    /**
+     * vector addition
+     * @param vector the second vector
+     * @return new vector
+     */
     public Vector add(Vector vector) {
         double x = head.x.coord + vector.head.x.coord;
         double y = head.y.coord + vector.head.y.coord;
@@ -38,15 +54,29 @@ public class Vector {
 
     }
 
+    /**
+     * vector subtraction
+     * @param v the second vector
+     * @return new vector
+     */
     public Vector subtract(Vector v) {
         return head.subtract(v.head);
 
     }
 
+    /**
+     *get head
+     * @return head
+     */
     public Point3D getHead() {
         return head;
     }
 
+    /**
+     * Scalar multiplication
+     * @param a scalar
+     * @return new vector
+     */
     public Vector scale(double a) {
         if (a == 0d) {
             throw new IllegalArgumentException("cannot scale by zero");
@@ -58,6 +88,11 @@ public class Vector {
 
     }
 
+    /**
+     * Cross product
+     * @param v the second vector
+     * @return new vector
+     */
     public Vector crossProduct(Vector v) {
         double u1 = head.x.coord;
         double u2 = head.y.coord;
@@ -71,6 +106,11 @@ public class Vector {
                         u1 * v2 - u2 * v1);
     }
 
+    /**
+     * dotProduct
+     * @param v the second vector
+     * @return double type value
+     */
     public double dotProduct(Vector v) {
         double u1 = head.x.coord;
         double u2 = head.y.coord;

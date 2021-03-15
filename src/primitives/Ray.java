@@ -8,16 +8,29 @@ public class Ray {
     private Point3D p0;
     private Vector dir;
 
+    /**
+     * constructor
+     * @param point3D 3D point
+     * @param vector  vector
+     */
     public Ray(Point3D point3D, Vector vector) {
         p0 = new Point3D(point3D.x, point3D.y, point3D.z);
         dir = new Vector(vector.getHead());
         dir.normalize();
     }
 
+    /**
+     * getter
+     * @return start point p0
+     */
     public Point3D getP0() {
         return p0;
     }
 
+    /**
+     * getter
+     * @return  ray direction
+     */
     public Vector getDir() {
         return dir;
     }

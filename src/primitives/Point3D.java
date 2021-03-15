@@ -3,7 +3,7 @@ package primitives;
 import java.util.Objects;
 
 /**
- *The class represents a three-dimensional point
+ * The class represents a three-dimensional point
  */
 public class Point3D {
     final Coordinate x;
@@ -13,7 +13,7 @@ public class Point3D {
     public static final Point3D ZERO = new Point3D(0, 0, 0);
 
     /**
-     * constructor for Point3D
+     * constructor for Point3D receiving 3 Coordinates
      *
      * @param x coordinate for x axis
      * @param y coordinate for y axis
@@ -24,7 +24,7 @@ public class Point3D {
     }
 
     /**
-     * constructor for Point3D
+     * constructor for Point3D receiving 3 doubles for coordinate's value
      *
      * @param X value for x coordinate
      * @param Y value for y coordinate
@@ -39,7 +39,7 @@ public class Point3D {
     /**
      * Adding a vector to a point
      *
-     * @param vector The second point
+     * @param vector The vector to which we add the dot
      * @return New point
      */
     public Point3D add(Vector vector) {
@@ -68,7 +68,8 @@ public class Point3D {
         return new Vector(x, y, z);
     }
 
-    /**
+    /** calculates Square distance between two three-dimensional points
+     *
      * @param point3D The second point
      * @return Square distance between two three-dimensional points
      */
@@ -84,9 +85,10 @@ public class Point3D {
 
     }
 
-    /**
-     * @param point3D
-     * @return euclidean distance between 2 3D points
+    /** calculates distance between 2 3D points
+     *
+     * @param point3D the second point
+     * @return  distance between 2 3D points
      */
     public double distance(Point3D point3D) {
         return Math.sqrt(distanceSquared(point3D));
@@ -101,12 +103,16 @@ public class Point3D {
         return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
     }
 
+    /**
+     * Prints the object
+     * @return  a print of the object
+     */
     @Override
     public String toString() {
         return "Point3D{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
+                "x=" + x.toString() +
+                ", y=" + y.toString() +
+                ", z=" + z.toString() +
                 '}';
     }
 
