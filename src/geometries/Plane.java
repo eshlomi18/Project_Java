@@ -36,7 +36,7 @@ public class Plane implements Geometry {
         return q0;
     }
 
-    @Deprecated
+
     public Vector getNormal() {
         return normal;
     }
