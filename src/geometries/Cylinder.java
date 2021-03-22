@@ -11,7 +11,7 @@ import primitives.Vector;
 public class Cylinder extends Tube {
     private double height;
 
-    public Cylinder(Ray axisRay, Double radius,double height){
+    public Cylinder(Ray axisRay, double radius,double height){
         super(axisRay,radius);
         this.height=height;
     }
