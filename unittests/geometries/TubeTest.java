@@ -16,5 +16,8 @@ public class TubeTest {
         Tube pl = new Tube(new Ray(new Point3D(0, 0, 1), new Vector(new Point3D(1, 0, 0))), 2.0);
         double sqrt3 = Math.sqrt(1d / 3);
         assertEquals("Bad normal to tube", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+
+        //=====boundary value analysis=====
+        //TC10: point close to head ray
     }
 }
