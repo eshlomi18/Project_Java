@@ -9,9 +9,9 @@ import primitives.Vector;
  */
 public class Sphere implements Geometry {
     private Point3D center;
-    private Double radius;
+    private double radius;
 
-    public Sphere(Point3D center, Double radius) {
+    public Sphere(Point3D center, double radius) {
         this.center = center;
         this.radius = radius;
     }
@@ -20,7 +20,7 @@ public class Sphere implements Geometry {
         return center;
     }
 
-    public Double getRadius() {
+    public double getRadius() {
         return radius;
     }
 
@@ -33,6 +33,6 @@ public class Sphere implements Geometry {
 
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        return point3D.subtract(center).normalize();
     }
 }
