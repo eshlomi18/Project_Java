@@ -37,9 +37,9 @@ public class Vector {
      * @param y value for y coordinate
      * @param z value for z coordinate
      */
-    public Vector(Coordinate x, Coordinate y, Coordinate z) {
+   /* public Vector(Coordinate x, Coordinate y, Coordinate z) {
         this(new Point3D(x, y, z));
-    }
+    }*/
 
     /**
      * vector addition
