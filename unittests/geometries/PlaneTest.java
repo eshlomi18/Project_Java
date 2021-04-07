@@ -1,10 +1,11 @@
 package geometries;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Vector;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PlaneTest {
 
@@ -16,8 +17,8 @@ public class PlaneTest {
         try {
             new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0));
-            fail("Failed constructing a correct plane");
         } catch (IllegalArgumentException e) {
+            fail("Failed constructing a correct plane");
         }
 
         // =============== Boundary Values Tests ==================
@@ -26,15 +27,15 @@ public class PlaneTest {
         try {
             new Plane(new Point3D(1, 0, 0), new Point3D(1, 1, 0),
                     new Point3D(0, 1, 0));
-            fail("constructed a plane with first and second point coalesces");
         } catch (IllegalArgumentException e) {
+            fail("constructed a plane with first and second point coalesces");
         }
         //TC11: plane with points on the same straight
         try {
             new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 2),
                     new Point3D(0, 0, 3));
-            fail("constructed a plane with points on the same straight");
         } catch (IllegalArgumentException e) {
+            fail("constructed a plane with points on the same straight");
         }
 
     }
@@ -44,6 +45,6 @@ public class PlaneTest {
         Plane pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                 new Point3D(0, 1, 0));
         double sqrt3 = Math.sqrt(1d / 3);
-        assertEquals("Bad normal to plane", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+        assertEquals( new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)),"Bad normal to plane");
     }
 }

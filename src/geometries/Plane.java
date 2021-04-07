@@ -20,7 +20,7 @@ public class Plane implements Geometry {
 
 
         Vector U = q2.subtract(q1);
-        Vector V = q2.subtract(q3);
+        Vector V = q3.subtract(q1);
         Vector N = U.crossProduct(V);
         N.normalize();
         this.normal = N;
