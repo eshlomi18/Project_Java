@@ -34,8 +34,8 @@ public class PlaneTest {
         try {
             new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 2),
                     new Point3D(0, 0, 3));
-        } catch (IllegalArgumentException e) {
             fail("constructed a plane with points on the same straight");
+        } catch (IllegalArgumentException e) {
         }
 
     }

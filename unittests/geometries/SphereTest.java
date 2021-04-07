@@ -1,20 +1,26 @@
 package geometries;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
-public class SphereTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+
+class SphereTest {
+
+    /**
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point3D)}.
+     */
     @Test
-    public void getNormal() {
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        Sphere pl = new Sphere( new Point3D(0, 0, 0), 1.0);
-        double sqrt3 = Math.sqrt(1d / 3);
-        assertEquals("Bad normal to sphere", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+        Sphere sph = new Sphere(new Point3D(0, 0, 1),1.0);
+        assertEquals(new Vector(0, 0, 1), sph.getNormal(new Point3D(0, 0, 2)), "Bad normal to sphere");
     }
+
 }
