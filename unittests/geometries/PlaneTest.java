@@ -52,7 +52,7 @@ public class PlaneTest {
     }
 
     /**
-     * Test method for {@link geometries.Plane#findInterse ctions(primitives.Ray)}.
+     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
      */
     @Test
     public void testfindIntersectionsRay() {
