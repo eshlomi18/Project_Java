@@ -116,17 +116,17 @@ public class Point3D {
                 '}';
     }
 
-//    public double getX() {
-//        return x.coord;
-//    }
-//
-//    public double getY() {
-//        return y.coord;
-//    }
-//
-//    public double getZ() {
-//        return z.coord;
-//    }
+   public double getX() {
+       return x.coord;
+   }
+
+   public double getY() {
+       return y.coord;
+   }
+
+   public double getZ() {
+       return z.coord;
+   }
 
 
 }

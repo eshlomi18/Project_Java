@@ -16,9 +16,6 @@ public class Plane implements Geometry {
     public Plane(Point3D q1, Point3D q2, Point3D q3) {
         this.q0 = q1;
 
-        //TODO check direction of vectors?
-
-
         Vector U = q2.subtract(q1);
         Vector V = q3.subtract(q1);
         Vector N = U.crossProduct(V);
