@@ -50,4 +50,8 @@ public class Ray {
                 ", dir=" + dir.toString() +
                 '}';
     }
+
+    public Point3D getPoint(double t) {
+        return p0.add(dir.scale(t));
+    }
 }

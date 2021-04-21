@@ -6,6 +6,6 @@ import primitives.Vector;
 /**
  * interface that contains a function that return a vector normal to the shape
  */
-public interface Geometry {
+public interface Geometry extends Intersectable{
     public Vector getNormal(Point3D point3D);
 }

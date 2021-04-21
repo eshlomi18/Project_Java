@@ -8,7 +8,7 @@ import primitives.Vector;
  * geometrical shape that inherit from tube shape
  * contain beside of tube's fields a finite number height
  */
-public class Cylinder extends Tube {
+public class Cylinder extends Tube  {
     private double height;
 
     public Cylinder(Ray axisRay, double radius,double height){
