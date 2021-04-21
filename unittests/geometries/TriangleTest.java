@@ -34,32 +34,32 @@ public class TriangleTest {
         ray = new Ray(new Point3D(0, 0, -1), new Vector(1, 1, 0));
         assertEquals("Wrong intersection with plane", List.of(new Point3D(1, 1, -1)),
                 pl.findIntersections(ray));
-        assertNull(tr.findIntersections(ray), "Bad intersection");
+        assertNull(tr.findIntersections(ray).toString(), "Bad intersection");
 
 
         // TC03: Against vertex
         ray = new Ray(new Point3D(0, 0, 2), new Vector(-1, -1, 0));
         assertEquals("Wrong intersection with plane", List.of(new Point3D(-0.5, -0.5, 2)),
                 pl.findIntersections(ray));
-        assertNull(tr.findIntersections(ray), "Bad intersection");
+        assertNull(tr.findIntersections(ray).toString(), "Bad intersection");
 
         // =============== Boundary Values Tests ==================
         // TC11: In vertex
         ray = new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0));
         assertEquals("Wrong intersection with plane", List.of(new Point3D(0, 1, 0)),
                 pl.findIntersections(ray));
-        assertNull(tr.findIntersections(ray), "Bad intersection");
+        assertNull(tr.findIntersections(ray).toString(), "Bad intersection");
 
         // TC12: On edge
         ray = new Ray(new Point3D(-1, -1, 0), new Vector(1, 1, 0));
         assertEquals("Wrong intersection with plane", List.of(new Point3D(0.5, 0.5, 0)),
                 pl.findIntersections(ray));
-        assertNull(tr.findIntersections(ray), "Bad intersection");
+        assertNull(tr.findIntersections(ray).toString(), "Bad intersection");
 
         // TC13: On edge continuation
         ray = new Ray(new Point3D(-2, 0, 0), new Vector(1, 1, 0));
         assertEquals("Wrong intersection with plane", List.of(new Point3D(-0.5, 1.5, 0)),
                 pl.findIntersections(ray));
-        assertNull(tr.findIntersections(ray), "Bad intersection");
+        assertNull(tr.findIntersections(ray).toString(), "Bad intersection");
     }
 }
