@@ -20,7 +20,7 @@ public class CameraRayIntersectionsIntegrationTests {
      *
      * @author Dan Zilberstein
      * @param cam      camera for the test
-     * @param geo      3D body to test the integration of the camer with
+     * @param geo      3D body to test the integration of the camera with
      * @param expected amount of intersections
      */
     private void assertCountIntersections(Camera cam, Intersectable geo, int expected) {

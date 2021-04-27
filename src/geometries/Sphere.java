@@ -15,7 +15,6 @@ public class Sphere  implements Geometry {
     private double radius;
     public Sphere(Point3D center, double radius) {
         this.radius=radius;
-
         this.center = center;
     }
 
