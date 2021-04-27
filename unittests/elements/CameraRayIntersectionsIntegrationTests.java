@@ -10,15 +10,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author Dan
- */
 public class CameraRayIntersectionsIntegrationTests {
 
     /**
      * Test helper function to count the intersections and compare with expected value
      *
-     * @author Dan Zilberstein
      * @param cam      camera for the test
      * @param geo      3D body to test the integration of the camera with
      * @param expected amount of intersections
