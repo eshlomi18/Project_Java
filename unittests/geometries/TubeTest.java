@@ -47,7 +47,7 @@ public class TubeTest {
         assertNull(tube1.findIntersections(ray), "Must not be intersections");
 
         // TC02: Ray's crosses the tube (2 points)
-        ray = new Ray(new Point3D(0, 0, 0), new Vector(2, 1, 1));
+        ray = new Ray(new Point3D(0, 0, 0), new Vector(2,1,1 ));
         List<Point3D> result = tube2.findIntersections(ray);
 
         assertNotNull(result, "must be intersections");
