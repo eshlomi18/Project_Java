@@ -1,4 +1,3 @@
-
 package elements;
 
 import geometries.*;
@@ -10,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CameraRayIntersectionsIntegrationTests {
+public class CameraRayIntersectionsTests {
 
     /**
      * Test helper function to count the intersections and compare with expected value

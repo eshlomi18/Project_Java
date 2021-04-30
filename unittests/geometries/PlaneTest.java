@@ -15,7 +15,6 @@ public class PlaneTest {
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
-
         // TC01: build correct plane
         try {
             new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
