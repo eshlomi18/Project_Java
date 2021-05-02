@@ -24,4 +24,20 @@ class Point3DTest {
                 new Point3D(2, 3, 4).subtract(p1),
                 "ERROR: Point - Point does not work correctly");
     }
+
+    @Test
+    void testDistance() {
+
+        Point3D point0 = new Point3D(1, 1, -100);
+        Point3D point1 = new Point3D(-1, 1, -99);
+        Point3D point2 = new Point3D(0, 0, -100);
+        Point3D point3 = new Point3D(0.5, 0, -100);
+        double resultSquared;
+        double result;
+
+        resultSquared = point3.distanceSquared(new Point3D(0, 0, -100));
+        System.out.println(resultSquared);
+        result = point3.distance(new Point3D(0, 0, -100));
+        System.out.println(result);
+    }
 }
