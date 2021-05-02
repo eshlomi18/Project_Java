@@ -2,6 +2,14 @@ package renderer;
 
 import org.junit.Test;
 
+import java.beans.XMLDecoder;
+import java.beans.PersistenceDelegate;
+import java.beans.XMLEncoder;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import elements.*;
 import geometries.*;
 import primitives.*;
@@ -51,10 +59,18 @@ public class RenderTests {
      * Test for XML based scene - for bonus
      */
     @Test
-    public void basicRenderXml() throws UnsupportedOperationException, MissingResourcesException {
-        Scene scene = new Scene("XML Test scene");
-        // enter XML file name and parse from XML file into scene object
-        // ...
+    public void basicRenderXml() throws UnsupportedOperationException, MissingResourcesException, FileNotFoundException {
+        Scene scene = new Scene();
+        String filePath = "basicRenderTestTwoColors.xml";
+        XMLDecoder decoder = new XMLDecoder(new FileInputStream(filePath));
+        try {
+            // deserialisation of the object
+            scene = (Scene) decoder.readObject();
+        } finally {
+            // close  decoder
+            decoder.close();
+        }
+
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
         Render render = new Render() //
