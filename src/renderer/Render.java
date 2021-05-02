@@ -14,7 +14,7 @@ public class Render {
     public Render() {
     }
 
-    public void renderImage() throws UnsupportedOperationException {
+    public void renderImage() throws UnsupportedOperationException, MissingResourcesException {
         try {
             if (scene == null || camera == null || imageWriter == null || rayTracer == null) {
                 throw new MissingResourcesException("one of the arguments is missing arguments");
@@ -33,7 +33,7 @@ public class Render {
     }
 
 
-    public void printGrid(int interval, Color color) {
+    public void printGrid(int interval, Color color) throws MissingResourcesException {
         try {
             if (imageWriter.getNy() == 0 || imageWriter.getNx() == 0) {
                 throw new MissingResourcesException();

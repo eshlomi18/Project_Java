@@ -16,7 +16,7 @@ public class Geometries implements Intersectable {
         add(list);
     }
 
-    private void add(Intersectable... list) {
+    public void add(Intersectable... list) {
         Collections.addAll(intersectables, list);
     }
 

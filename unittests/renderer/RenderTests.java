@@ -23,7 +23,7 @@ public class RenderTests {
      * grid
      */
     @Test
-    public void basicRenderTwoColorTest() throws UnsupportedOperationException {
+    public void basicRenderTwoColorTest() throws UnsupportedOperationException, MissingResourcesException {
 
         Scene scene = new Scene("Test scene")//
                 .setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
@@ -51,7 +51,7 @@ public class RenderTests {
      * Test for XML based scene - for bonus
      */
     @Test
-    public void basicRenderXml() throws UnsupportedOperationException {
+    public void basicRenderXml() throws UnsupportedOperationException, MissingResourcesException {
         Scene scene = new Scene("XML Test scene");
         // enter XML file name and parse from XML file into scene object
         // ...
