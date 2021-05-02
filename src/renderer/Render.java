@@ -44,7 +44,9 @@ public class Render {
 
         for (int i = 0; i < imageWriter.getNx(); i++) {
             for (int j = 0; j < imageWriter.getNy(); j++) {
-                imageWriter.writePixel(imageWriter.getNx()/interval,imageWriter.getNy()/interval,color);
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
             }
         }
     }
