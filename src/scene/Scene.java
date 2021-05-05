@@ -6,15 +6,18 @@ import primitives.Color;
 
 public class Scene {
 
+
     public Geometries geometries;
     public Color background;
     public AmbientLight ambientLight;
 
-    public Scene() {
+    private final String name;
 
+    public Scene(String name) {
+        this.name = name;
     }
 
-
+    //chaining methods
     public Scene setBackground(Color background) {
         this.background = background;
         return this;

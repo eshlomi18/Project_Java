@@ -60,7 +60,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderXml() throws UnsupportedOperationException, MissingResourcesException, FileNotFoundException {
-        Scene scene = new Scene();
+        Scene scene = new Scene("basicRenderTestTwoColors.xml");
         String filePath = "basicRenderTestTwoColors.xml";
         XMLDecoder decoder = new XMLDecoder(new FileInputStream(filePath));
         try {
