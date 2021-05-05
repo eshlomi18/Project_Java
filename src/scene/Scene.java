@@ -7,14 +7,15 @@ import primitives.Color;
 public class Scene {
 
 
-    public Geometries geometries;
-    public Color background;
-    public AmbientLight ambientLight;
+    public Geometries geometries=null;
+    public Color background= Color.BLACK;
+    public AmbientLight ambientLight= new AmbientLight(new Color(192, 192, 192),1.d);
 
     private final String name;
 
     public Scene(String name) {
         this.name = name;
+        geometries= new Geometries();
     }
 
     //chaining methods
