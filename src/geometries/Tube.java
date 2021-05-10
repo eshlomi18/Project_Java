@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
  * tube shape
  * contains a ray and a radius
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
     protected Ray axisRay;
     protected Double radius;
 
@@ -59,6 +59,11 @@ public class Tube implements Geometry {
         Vector n = point3D.subtract(o);
         return n.normalized();
 
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return null;
     }
 
     @Override

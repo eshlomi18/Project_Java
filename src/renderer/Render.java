@@ -6,7 +6,7 @@ import primitives.Ray;
 import scene.Scene;
 
 public class Render {
-    private Scene scene;
+
     private Camera camera;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
@@ -16,7 +16,7 @@ public class Render {
 
     public void renderImage() throws UnsupportedOperationException, MissingResourcesException {
         try {
-            if (scene == null || camera == null || imageWriter == null || rayTracer == null) {
+            if ( camera == null || imageWriter == null || rayTracer == null) {
                 throw new MissingResourcesException("one of the arguments is missing arguments");
             }
 
@@ -57,11 +57,6 @@ public class Render {
     }
 
 
-    public Render setScene(Scene scene) {
-
-        this.scene = scene;
-        return this;
-    }
 
 
     public Render setCamera(Camera camera) {

@@ -10,11 +10,12 @@ import java.util.List;
  * sphere shape
  * contain a point for the center and a double number for the radius which is a finite number
  */
-public class Sphere  implements Geometry {
+public class Sphere extends Geometry {
     private Point3D center;
     private double radius;
+
     public Sphere(Point3D center, double radius) {
-        this.radius=radius;
+        this.radius = radius;
         this.center = center;
     }
 
@@ -31,14 +32,14 @@ public class Sphere  implements Geometry {
 
     @Override
     public Vector getNormal(Point3D point3D) {
-        if(point3D.equals(center)){
+        if (point3D.equals(center)) {
             throw new IllegalArgumentException("pint cannot be the center of the sphere");
         }
         return point3D.subtract(center).normalize();
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
 
         Point3D p0 = ray.getP0();
         Point3D o = center;
@@ -55,18 +56,20 @@ public class Sphere  implements Geometry {
         double t2 = tm + th;
 
         if (t1 > 0 && t2 > 0) {
-            return (List.of(ray.getPoint(t1), ray.getPoint(t2)));
+            return (List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2))));
         }
         if (t1 > 0) {
 
-            return (List.of(ray.getPoint(t1)));
+            return (List.of(new GeoPoint(this, ray.getPoint(t1))));
         }
         if (t2 > 0) {
 
-            return (List.of(ray.getPoint(t2)));
+            return (List.of(new GeoPoint(this, ray.getPoint(t2))));
         }
         return null;
     }
+
+
 }
 
 

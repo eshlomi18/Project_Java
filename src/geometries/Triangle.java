@@ -31,6 +31,11 @@ public class Triangle extends Polygon {
     public List<Point3D> findIntersections(Ray ray) {
         return super.findIntersections(ray);
     }
+
+    public List<GeoPoint> findGeoIntersections(Ray ray){
+        return super.findGeoIntersections(ray);
+    }
+
 }
 
 
