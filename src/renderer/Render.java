@@ -10,40 +10,47 @@ public class Render {
     private Camera camera;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+    private Scene scene;
 
     public Render() {
     }
 
     public void renderImage() throws UnsupportedOperationException, MissingResourcesException {
         try {
-            if ( camera == null || imageWriter == null || rayTracer == null) {
-                throw new MissingResourcesException("one of the arguments is missing arguments");
+            if (imageWriter == null) {
+                throw new MissingResourcesException("missing resource", ImageWriter.class.getName(), "");
+            }
+            if (imageWriter == null) {
+                throw new MissingResourcesException("missing resource", Scene.class.getName(), "");
+            }
+            if (imageWriter == null) {
+                throw new MissingResourcesException("missing resource", Camera.class.getName(), "");
+            }
+            if (imageWriter == null) {
+                throw new MissingResourcesException("missing resource", RayTracerBase.class.getName(), "");
             }
 
-            for (int i = 0; i < imageWriter.getNx(); i++) {
-                for (int j = 0; j < imageWriter.getNy(); j++) {
-                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), i, j);
+            //rendering the image
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    Ray ray = camera.constructRayThroughPixel(nX, nY, j, i);
                     Color pixelColor = rayTracer.traceRay(ray);
-                    imageWriter.writePixel(i, j, pixelColor);
+                    imageWriter.writePixel(j, i, pixelColor);
                 }
             }
         } catch (MissingResourcesException e) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
     }
 
 
-    public void printGrid(int interval, Color color) throws MissingResourcesException {
-        try {
-            if (imageWriter.getNy() == 0 || imageWriter.getNx() == 0) {
-                throw new MissingResourcesException();
-            }
-        } catch (MissingResourcesException e) {
-            e.getMessage();
-        }
-
-        for (int i = 0; i < imageWriter.getNx(); i++) {
-            for (int j = 0; j < imageWriter.getNy(); j++) {
+    public void printGrid(int interval, Color color) {
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
                 if (i % interval == 0 || j % interval == 0) {
                     imageWriter.writePixel(j, i, color);
                 }
@@ -55,8 +62,6 @@ public class Render {
     public void writeToImage() {
         imageWriter.writeToImage();
     }
-
-
 
 
     public Render setCamera(Camera camera) {
@@ -72,6 +77,11 @@ public class Render {
     public Render setRayTracer(RayTracerBase rayTracer) {
 
         this.rayTracer = rayTracer;
+        return this;
+    }
+
+    public Render setScene(Scene scene) {
+        this.scene = scene;
         return this;
     }
 }
