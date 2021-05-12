@@ -19,16 +19,9 @@ public class SpotLight extends PointLight {
         this.direction = direction;
     }
 
-    //TODO:multiplication par i0?
     @Override
     public Color getIntensity(Point3D p) {
         double factor = alignZero(Math.max(0, direction.dotProduct(getL(p))));
         return super.getIntensity().scale(factor);
-    }
-
-    //TODO:normalized?
-    @Override
-    public Vector getL(Point3D p) {
-        return direction.normalized();
     }
 }

@@ -39,7 +39,7 @@ public class LightsTests {
 	@Test
 	public void sphereDirectional() throws MissingResourcesException, UnsupportedOperationException {
 		scene1.geometries.add(sphere);
-		scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(1, 1, -1)));
+		scene1.lights.add(new DirectionalLight(new Color(200, 300, 0), new Vector(1, 1, -1)));
 
 		ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 500, 500);
 		Render render = new Render()//

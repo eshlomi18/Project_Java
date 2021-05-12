@@ -33,7 +33,7 @@ public class Sphere extends Geometry {
     @Override
     public Vector getNormal(Point3D point3D) {
         if (point3D.equals(center)) {
-            throw new IllegalArgumentException("pint cannot be the center of the sphere");
+            throw new IllegalArgumentException("point cannot be the center of the sphere");
         }
         return point3D.subtract(center).normalize();
     }

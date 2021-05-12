@@ -6,7 +6,7 @@ import primitives.Vector;
 
 public class PointLight extends Light implements LightSource {
 
-    private Point3D position;
+    protected Point3D position;
     private double kC;
     private double kL;
     private double kQ;
@@ -50,10 +50,9 @@ public class PointLight extends Light implements LightSource {
         return getIntensity().reduce(denominator);
     }
 
-    //TODO:comprendre pk sub p;
     @Override
     public Vector getL(Point3D p) {
-        return position.subtract(p);
+        return p.subtract(position).normalize();
     }
 
 
