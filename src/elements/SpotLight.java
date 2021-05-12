@@ -9,6 +9,10 @@ import static primitives.Util.isZero;
 public class SpotLight extends PointLight {
     private Vector direction;
 
+    public SpotLight(Color intensity, Point3D position, Vector direction) {
+        super(intensity, position);
+        this.direction = direction;
+    }
 
     public SpotLight(Color intensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
         super(intensity, position, kC, kL, kQ);
