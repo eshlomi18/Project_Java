@@ -15,7 +15,7 @@ public class Scene {
 
     public Geometries geometries = null;
     public Color background = Color.BLACK;
-    public AmbientLight ambientLight = new AmbientLight(new Color(192, 192, 192), 1.d);
+    public AmbientLight ambientLight = new AmbientLight(); //new AmbientLight(new Color(192, 192, 192), 1.d);
     public List<LightSource> lights;
 
     private final String name;
