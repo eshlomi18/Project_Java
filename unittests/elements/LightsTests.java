@@ -88,16 +88,16 @@ public class LightsTests {
     public void SphereMultiLightSource() throws MissingResourcesException, UnsupportedOperationException {
         scene1.geometries.add(sphere);
         scene1.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-                .setkL(0.00001).setkQ(0.001));
+                .setKl(0.00001).setKq(0.001));
         scene1.lights.add(new PointLight(new Color(100, 200, 200), new Point3D(50, 300, -50))//
-                .setkL(0.00001).setkQ(0.000001));
+                .setKl(0.00001).setKq(0.000001));
         scene1.lights.add(new DirectionalLight(new Color(200, 300, 50), new Vector(1, 1, -1)));
 
         ImageWriter imageWriter = new ImageWriter("SphereMultiLightSource", 500, 500);
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
+                .setRayTracer(new BasicRayTracer(scene1));
         render.renderImage();
         render.writeToImage();
     }
