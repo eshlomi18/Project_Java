@@ -26,7 +26,12 @@ public interface Intersectable {
 
     }
 
-    List<GeoPoint> findGeoIntersections(Ray ray);
+    default List<GeoPoint> findGeoIntersections(Ray ray){
+       return findGeoIntersections(ray,Double.POSITIVE_INFINITY);
+    }
+
+    List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
+
     default List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
@@ -34,6 +39,7 @@ public interface Intersectable {
                 map(gp -> gp.point)
                 .collect(Collectors.toList());
     }
+
 
 
 }

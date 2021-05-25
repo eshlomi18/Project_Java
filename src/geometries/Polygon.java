@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
@@ -86,91 +87,126 @@ public class Polygon extends Geometry {
 		return plane.getNormal();
 	}
 
-	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
-		List<Point3D> result = plane.findIntersections(ray);
+//	@Override
+//	public List<GeoPoint> findGeoIntersections tichonit(Ray ray ,double maxDistance) {
+//		List<GeoPoint> planeIntersections = plane.findGeoIntersections(ray , maxDistance);
+//
+//		if (planeIntersections == null) {
+//			return null;
+//		}
+//
+//		Point3D P0 = ray.getP0();
+//		Vector v = ray.getDir();
+//
+//		double vn=0;
+//		for (int i =0;i<vertices.size();++i){
+//
+//			Vector v1=vertices.get(i).subtract(P0);
+//
+//			Vector v2;
+//			if(i==vertices.size()-1){
+//				v2=vertices.get(0).subtract(P0);
+//			}
+//			else{
+//				v2=vertices.get(i+1).subtract(P0);
+//			}
+//
+//			Vector n = v1.crossProduct(v2).normalize();
+//			double vni = alignZero(v.dotProduct(n));
+//
+//			if(i==0){
+//				vn = vni;
+//			}
+//
+//			if(vni==0|| vn<0&&vni>0||vn>0&&vni<0){
+//				return null;
+//			}
+//		}
+//		planeIntersections.get(0).geometry=this;
+//		return planeIntersections;
+//
+//	}
 
-		if (result == null) {
-			return null;
+	public List<GeoPoint> findGeoIntersections (Ray ray ,double maxDistance) {
+		List<Vector> vectors=new LinkedList<>();
+		for(Point3D p:vertices){
+			vectors.add(p.subtract(ray.getP0()));
 		}
 
-		Point3D P0 = ray.getP0();
-		Vector v = ray.getDir();
-
-		Point3D P1 = vertices.get(1);
-		Point3D P2 = vertices.get(0);
-
-		Vector v1 = P1.subtract(P0);
-		Vector v2 = P2.subtract(P0);
-
-		double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-
-		if (isZero(sign)) {
-			return null;
+		List<Vector > normals=new LinkedList<>();
+		for(int i=0;i< vectors.size()-1;i++){
+			normals.add((vectors.get(i).crossProduct(vectors.get(i+1))).normalize());
 		}
+		normals.add((vectors.get(vectors.size()-1).crossProduct(vectors.get(0))).normalize());
 
-		boolean positive = sign > 0;
+		boolean Negative =true;
+		boolean Positive=true;
 
-		//iterate through all vertices of the polygon
-		for (int i = vertices.size() - 1; i > 0; --i) {
-			v1 = v2;
-			v2 = vertices.get(i).subtract(P0);
-
-			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-			if (isZero(sign)) {
-				return null;
+		for(Vector n:normals){
+			if(alignZero(n.dotProduct(ray.getDir()))>=0){
+				Negative=false;
 			}
-
-			if (positive != (sign > 0)) {
-				return null;
+			if(alignZero(n.dotProduct(ray.getDir()))<=0){
+				Positive=false;
 			}
 		}
-		return List.of(new GeoPoint(this,result.get(0))) ;
-		//return result;
 
-	}
+		List<GeoPoint>result= plane.findGeoIntersections(ray, maxDistance);
+		if(result!=null){
+			result.get(0).geometry=this;
+		}
 
-	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		List<Point3D> result = plane.findIntersections(ray);
-
-		if (result == null) {
+		if(Negative||Positive){
 			return result;
 		}
-
-		Point3D P0 = ray.getP0();
-		Vector v = ray.getDir();
-
-		Point3D P1 = vertices.get(1);
-		Point3D P2 = vertices.get(0);
-
-		Vector v1 = P1.subtract(P0);
-		Vector v2 = P2.subtract(P0);
-
-		double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-
-		if (isZero(sign)) {
-			return null;
-		}
-
-		boolean positive = sign > 0;
-
-		//iterate through all vertices of the polygon
-		for (int i = vertices.size() - 1; i > 0; --i) {
-			v1 = v2;
-			v2 = vertices.get(i).subtract(P0);
-
-			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-			if (isZero(sign)) {
-				return null;
-			}
-
-			if (positive != (sign > 0)) {
-				return null;
-			}
-		}
-
-		return result;
-
+		return null;
 	}
+
+
+
+
+	//	@Override
+//	public List<GeoPoint> findGeoIntersections(Ray ray ,double maxDistance) {
+//		List<Point3D> result = plane.findIntersections(ray);
+//
+//		if (result == null) {
+//			return null;
+//		}
+//
+//		Point3D P0 = ray.getP0();
+//		Vector v = ray.getDir();
+//
+//		Point3D P1 = vertices.get(1);
+//		Point3D P2 = vertices.get(0);
+//
+//		Vector v1 = P1.subtract(P0);
+//		Vector v2 = P2.subtract(P0);
+//
+//		double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+//
+//		if (isZero(sign)) {
+//			return null;
+//		}
+//
+//		boolean positive = sign > 0;
+//
+//		//iterate through all vertices of the polygon
+//		for (int i = vertices.size() - 1; i > 0; --i)  {
+//			v1 = v2;
+//			v2 = vertices.get(i).subtract(P0);
+//
+//			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+//			if (isZero(sign)) {
+//				return null;
+//			}
+//
+//			if (positive != (sign > 0)) {
+//				return null;
+//			}
+//		}
+//		return List.of(new GeoPoint(this,result.get(0))) ;
+//		//return result;
+//
+//	}
+
 }

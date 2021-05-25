@@ -21,10 +21,17 @@ public class Geometries implements Intersectable {
     }
 
 
-    public List<GeoPoint> findGeoIntersections(Ray ray){
+    /**
+     * find geo points intersections of ray and geometries
+     * @param ray
+     * @param maxDistance
+     * @return
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         List<GeoPoint>result=null;
         for (Intersectable geo:intersectables){
-            List<GeoPoint> geoPoints= geo.findGeoIntersections(ray);
+            List<GeoPoint> geoPoints= geo.findGeoIntersections(ray,maxDistance);
             if(geoPoints!=null){
                 if(result==null){
                     result=new LinkedList<>();

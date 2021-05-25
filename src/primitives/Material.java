@@ -12,7 +12,7 @@ public class Material {
      * @param kD
      * @return builder pattern
      */
-    public Material setkD(double kD) {
+    public Material setKd(double kD) {
         this.kD = kD;
         return this;
     }
@@ -22,7 +22,7 @@ public class Material {
      * @param kS
      * @return builder pattern
      */
-    public Material setkS(double kS) {
+    public Material setKs(double kS) {
         this.kS = kS;
         return this;
 
@@ -33,7 +33,7 @@ public class Material {
      * @param nShininess
      * @return builder pattern
      */
-    public Material setnShininess(int nShininess) {
+    public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
 

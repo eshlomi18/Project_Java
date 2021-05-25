@@ -19,7 +19,7 @@ class SphereTest {
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        Sphere sph = new Sphere(new Point3D(0, 0, 1), 1.0);
+        Sphere sph = new Sphere(1.0, new Point3D(0, 0, 1));
         assertEquals(new Vector(0, 0, 1), sph.getNormal(new Point3D(0, 0, 2)), "Bad normal to sphere");
     }
 
@@ -28,7 +28,7 @@ class SphereTest {
      */
     @Test
     public void testFindIntersectionsRay() {
-        Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
+        Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
         Point3D gp1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);

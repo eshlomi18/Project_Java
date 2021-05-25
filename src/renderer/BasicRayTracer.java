@@ -17,9 +17,10 @@ import java.util.List;
  * it implements the traceRay method
  * and has a calcColor method
  */
-public class RayTracerBasic extends RayTracerBase {
+public class BasicRayTracer extends RayTracerBase {
+    private static final double DELTA = 0.1;
 
-    public RayTracerBasic(Scene scene) {
+    public BasicRayTracer(Scene scene) {
         super(scene);
     }
 
@@ -52,8 +53,11 @@ public class RayTracerBasic extends RayTracerBase {
 
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
         Vector v = ray.getDir();
-        Vector n = intersection.geometry.getNormal((intersection.point));
+        Vector n = intersection.geometry.getNormal(intersection.point);
         double nv = alignZero(n.dotProduct(v));
+        if(nv ==0){
+            return Color.BLACK;
+        }
 
         Material material = intersection.geometry.getMaterial();
         int nShininess = material.nShininess;
@@ -63,11 +67,26 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) {
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                if (unshaded(lightSource, intersection)) {
+
+
+                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                }
             }
         }
         return color;
+    }
+
+    private boolean unshaded(LightSource lightSource, GeoPoint intersection) {
+        Point3D point =intersection.point;
+        Vector n = intersection.geometry.getNormal(point);
+        Ray lightRay=new Ray(point,lightSource,n,DELTA);
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(point));
+        return intersections==null;
+
+
     }
 
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {

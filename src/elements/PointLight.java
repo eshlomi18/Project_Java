@@ -55,18 +55,23 @@ public class PointLight extends Light implements LightSource {
         return p.subtract(position).normalize();
     }
 
+    @Override
+    public double getDistance(Point3D point) {
+        return position.distance(point);
+    }
+
 
     public PointLight setkC(double kC) {
         this.kC = kC;
         return this;
     }
 
-    public PointLight setkL(double kL) {
+    public PointLight setKl(double kL) {
         this.kL = kL;
         return this;
     }
 
-    public PointLight setkQ(double kQ) {
+    public PointLight setKq(double kQ) {
         this.kQ = kQ;
         return this;
     }
