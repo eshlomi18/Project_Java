@@ -13,7 +13,8 @@ import static primitives.Point3D.ZERO;
 public class Ray {
     private Point3D p0;
     private Vector dir;
-
+    //try
+    private static final double DELTA = 0.1;
     /**
      * constructor
      *
@@ -32,6 +33,17 @@ public class Ray {
         p0=point.add(_delta);
         dir=l;
 
+    }
+    //try
+    public Ray(Point3D p0,Vector dir,Vector n){
+        double sign = dir.dotProduct(n);
+        if(Util.isZero(sign)){
+            throw new IllegalArgumentException("direction*normal is zero");
+        }
+        else{
+            this.p0=p0.add(n.scale(DELTA*Math.signum(sign)));
+            this.dir = dir;
+        }
     }
 
     /**
