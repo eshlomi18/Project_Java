@@ -55,7 +55,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = normal;
@@ -64,23 +64,74 @@ public class Plane extends Geometry {
             return null;
         }
 
+        Vector P0_Q0 = q0.subtract(P0);
 
-        if (isZero(n.dotProduct(v))) {
+        //numerator
+        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
+
+        //
+        if (isZero(nP0Q0)) {
             return null;
         }
 
-        double t = n.dotProduct(q0.subtract(P0)) / n.dotProduct(v);
+        //denominator
+        double nv = alignZero(n.dotProduct(v));
 
-        if (t > 0 && alignZero(t - maxDistance) <= 0) {
-            return List.of(new GeoPoint(this, ray.getPoint(t)));
+        // ray is lying in the plane axis
+        if (isZero(nv)) {
+            return null;
         }
 
-        return null;
+        double t = alignZero(nP0Q0 / nv);
 
+        if (t <= 0|| alignZero(t-maxDistance)>0) {
+            return null;
+        }
 
+        Point3D point = ray.getPoint(t);
+
+        return List.of(new GeoPoint(this, point));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    @Override
-//    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
+//    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 //        Point3D P0 = ray.getP0();
 //        Vector v = ray.getDir();
 //        Vector n = normal;
@@ -89,33 +140,20 @@ public class Plane extends Geometry {
 //            return null;
 //        }
 //
-//        Vector P0_Q0 = q0.subtract(P0);
 //
-//        //numerator
-//        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
-//
-//        //
-//        if (isZero(nP0Q0)) {
+//        if (isZero(n.dotProduct(v))) {
 //            return null;
 //        }
 //
-//        //denominator
-//        double nv = alignZero(n.dotProduct(v));
+//        double t = n.dotProduct(q0.subtract(P0)) / n.dotProduct(v);
 //
-//        // ray is lying in the plane axis
-//        if (isZero(nv)) {
-//            return null;
+//        if (t > 0 && alignZero(t - maxDistance) <= 0) {
+//            return List.of(new GeoPoint(this, ray.getPoint(t)));
 //        }
 //
-//        double t = alignZero(nP0Q0 / nv);
+//        return null;
 //
-//        if (t <= 0) {
-//            return null;
-//        }
 //
-//        Point3D point = ray.getPoint(t);
-//
-//        return List.of(new GeoPoint(this, point));
 //    }
 
 }
