@@ -9,8 +9,8 @@ import primitives.*;
 import scene.Scene;
 
 public class shadRefleREfract {
-    private Scene scene = new Scene("Test scene");//
-    ;
+    private Scene scene = new Scene("Test scene") .setAmbientLight(new AmbientLight(new Color(255, 191, 191), 0.02));//
+
     private Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setViewPlaneSize(200, 200).setDistance(1000);
 
@@ -40,9 +40,9 @@ public class shadRefleREfract {
                         .setEmission(new Color(java.awt.Color.YELLOW)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(5).setkT(0.6))
         );
-        scene.lights.add( //
-                new SpotLight(new Color(400, 240, 0), new Point3D(-100, -100, 200), new Vector(1, 1, -3)) //
-                        .setKl(1E-5).setKq(1.5E-7));
+       scene.lights.add( //
+               new SpotLight(new Color(400, 240, 0), new Point3D(-100, -100, 200), new Vector(1, 1, -3)) //
+                       .setKl(1E-5).setKq(1.5E-7));
 
         Render render = new Render() //
                 .setImageWriter(new ImageWriter("alltogether", 600, 600)) //
