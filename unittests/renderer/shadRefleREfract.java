@@ -18,18 +18,27 @@ public class shadRefleREfract {
     public void trianglesSphere() throws MissingResourcesException, UnsupportedOperationException {
 
         scene.geometries.add( //
-             // new Tube(new Ray(new Point3D(-60,-20,40),new Vector(new Point3D( -20,-20,25))),20.0)
-             //         .setEmission(new Color(java.awt.Color.green)) //
-             //         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)),
-               new Sphere(100, new Point3D(0, 0, -200)) //
-                       .setEmission(new Color(java.awt.Color.BLUE)) //
-                       .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(30).setkT(0.6)), //
-               new Polygon(new Point3D(75, 0, 0), new Point3D(0, -75, 0),new Point3D(-75, 0, 0),new Point3D(0, 75, 0)) //
-                       .setEmission(new Color(java.awt.Color.green)) //
-                       .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(30).setkT(0.6)), //
-                new Triangle(new Point3D(-50,-45,0), new Point3D(-60,-10,0), new Point3D(-20,-28,0)) //
+                //new Tube(new Ray(new Point3D(-60,-20,40),new Vector(new Point3D( -20,-20,25))),20.0)
+                //        .setEmission(new Color(java.awt.Color.green)) //
+                //        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)),
+                new Sphere(100, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(10).setkT(0.6))
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(30).setkT(0.8)), //
+                new Polygon(new Point3D(75, 0, 0), new Point3D(0, -75, 0), new Point3D(-75, 0, 0), new Point3D(0, 75, 0)) //
+                        .setEmission(new Color(java.awt.Color.green)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(10).setkT(0.6)), //
+                new Triangle(new Point3D(-26, 25, 10), new Point3D(-23, -27, 10), new Point3D(-50, 0, 10)) //
+                        .setEmission(new Color(java.awt.Color.YELLOW)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(5).setkT(0.6)),
+                new Triangle(new Point3D(26, -25, 10), new Point3D(23, 27, 10), new Point3D(50, 0, 10)) //
+                        .setEmission(new Color(java.awt.Color.YELLOW)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(5).setkT(0.6)),
+                new Triangle(new Point3D(0, 53, 10), new Point3D(-20, 28, 10), new Point3D(20, 28, 10)) //
+                        .setEmission(new Color(java.awt.Color.YELLOW)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(5).setkT(0.6)),
+                new Triangle(new Point3D(0, -53, -10), new Point3D(20, -28, -10), new Point3D(-20, -28, -10)) //
+                        .setEmission(new Color(java.awt.Color.YELLOW)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(5).setkT(0.6))
         );
         scene.lights.add( //
                 new SpotLight(new Color(400, 240, 0), new Point3D(-100, -100, 200), new Vector(1, 1, -3)) //
