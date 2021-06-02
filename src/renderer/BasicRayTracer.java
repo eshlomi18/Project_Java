@@ -279,25 +279,40 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
 
-
-
-    private Color average(List<java.awt.Color> list) {
+    private Color average(List<Color> list) {
         double r = 0, g = 0, b = 0;
 
-        Iterator<java.awt.Color> it = list.iterator();
+        Iterator<Color> it = list.iterator();
         while (it.hasNext()) {
-            java.awt.Color c = it.next();
-            r += c.getRed();
-            g += c.getGreen();
-            b += c.getBlue();
+            Color c = it.next();
+            java.awt.Color cc = c.getColor();
+            r += cc.getRed();
+            g += cc.getGreen();
+            b += cc.getBlue();
         }
         r /= list.size();
         g /= list.size();
         b /= list.size();
 
-
         return new Color((int) r, (int) g, (int) b);
     }
-    }
+    // private Color average(List<java.awt.Color> list) {
+    //     double r = 0, g = 0, b = 0;
+
+    //     Iterator<java.awt.Color> it = list.iterator();
+    //     while (it.hasNext()) {
+    //         java.awt.Color c = it.next();
+    //         r += c.getRed();
+    //         g += c.getGreen();
+    //         b += c.getBlue();
+    //     }
+    //     r /= list.size();
+    //     g /= list.size();
+    //     b /= list.size();
+
+
+    //     return new Color((int) r, (int) g, (int) b);
+    // }
+}
 
 
