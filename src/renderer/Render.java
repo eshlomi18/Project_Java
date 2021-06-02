@@ -14,7 +14,7 @@ public class Render {
 
     public Render() {
     }
-
+    boolean flag = true;
     public void renderImage() throws UnsupportedOperationException, MissingResourcesException {
         try {
             if (imageWriter == null) {
