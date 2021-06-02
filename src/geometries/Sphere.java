@@ -14,6 +14,8 @@ import static primitives.Util.alignZero;
  */
 public class Sphere extends Geometry {
     private Point3D center;
+
+
     private double radius;
 
     public Sphere(double radius, Point3D center) {
@@ -23,6 +25,10 @@ public class Sphere extends Geometry {
 
     public Point3D getCenter() {
         return center;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     public String toString() {

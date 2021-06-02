@@ -4,8 +4,10 @@ import geometries.Intersectable;
 
 import static geometries.Intersectable.GeoPoint;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import static primitives.Point3D.ZERO;
 
@@ -25,12 +27,14 @@ public class Ray {
         dir = new Vector(vector.getHead());
         dir.normalize();
     }
-    public  Ray(Point3D point,Vector dir,Vector n){
-        Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : - DELTA);
-        Point3D p=point.add(delta);
-        p0=p;
-        this.dir =dir;
+
+    public Ray(Point3D point, Vector dir, Vector n) {
+        Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : -DELTA);
+        Point3D p = point.add(delta);
+        p0 = p;
+        this.dir = dir;
     }
+
     /**
      * getter
      *
@@ -101,136 +105,28 @@ public class Ray {
         }
         return nearPoint;
     }
+
+    public LinkedList<Ray> getListRays(Point3D center, int radius) {
+        LinkedList<Ray> listRay = new LinkedList<Ray>();
+        listRay.add(this);
+
+        //int radius = (int) lightSource.getBulb().getRadius();
+        //Point3D center = lightSource.getBulb().getCenter();
+        double centerX = center.getX();
+        double centerY = center.getY();
+        double centerZ = center.getZ();
+
+        Random rand = new Random();
+        for (int i = 0; i < 50; i++) {
+            double x = rand.nextInt((int) centerX + radius - (int) (centerX - radius) + 1) + (centerX - radius);
+            double y = rand.nextInt((int) centerY + radius - (int) (centerY - radius) + 1) + (centerY - radius);
+            double z = rand.nextInt((int) centerZ + radius - (int) (centerZ - radius) + 1) + (centerZ - radius);
+
+            Point3D pointOfSphere = new Point3D(x, y, z);
+            Vector dest = pointOfSphere.subtract(this.p0);
+            Ray r = new Ray(this.p0, dest);
+            listRay.add(r);
+        }
+        return listRay;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//package primitives;
-//
-//import elements.LightSource;
-//import geometries.Intersectable;
-//
-//import static geometries.Intersectable.GeoPoint;
-//
-//import java.util.List;
-//import java.util.Objects;
-//
-//import static primitives.Point3D.ZERO;
-//
-//public class Ray {
-//    private Point3D p0;
-//    private Vector dir;
-//    //try
-//    private static final double DELTA = 0.1;
-//    /**
-//     * constructor
-//     *
-//     * @param point3D 3D point
-//     * @param vector  vector
-//     */
-//    public Ray(Point3D point3D, Vector vector) {
-//        p0 = new Point3D(point3D.x, point3D.y, point3D.z);
-//        dir = new Vector(vector.getHead());
-//        dir.normalize();
-//    }
-//
-//    public Ray(Point3D point, LightSource lightSource, Vector n, double delta) {
-//       Vector l=lightSource.getL(point).scale(-1);
-//        Vector _delta = n.scale(n.dotProduct(lightSource.getL(point)) > 0 ? delta : - delta);
-//        p0=point.add(_delta);
-//        dir=l;
-//
-//    }
-//    //try
-//    public Ray(Point3D p0,Vector dir,Vector n){
-//        double sign = dir.dotProduct(n);
-//        if(Util.isZero(sign)){
-//            throw new IllegalArgumentException("direction*normal is zero");
-//        }
-//        else{
-//            this.p0=p0.add(n.scale(DELTA*Math.signum(sign)));
-//            this.dir = dir;
-//        }
-//    }
-//
-//    /**
-//     * getter
-//     *
-//     * @return start point p0
-//     */
-//    public Point3D getP0() {
-//        return p0;
-//    }
-//
-//    /**
-//     * getter
-//     *
-//     * @return ray direction
-//     */
-//    public Vector getDir() {
-//        return dir;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Ray ray = (Ray) o;
-//        return p0.equals(ray.p0) && dir.equals(ray.dir);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Ray{" +
-//                "p0=" + p0.toString() +
-//                ", dir=" + dir.toString() +
-//                '}';
-//    }
-//
-//    public Point3D getPoint(double t) {
-//        return p0.add(dir.scale(t));
-//    }
-//
-//    public Point3D findClosestPoint(List<Point3D> point3DList) {
-//
-//        double distance = Double.POSITIVE_INFINITY;
-//        Point3D nearPoint = null;
-//        if (point3DList != null) {
-//            for (Point3D p : point3DList) {
-//                double dis = p.distance(p0);
-//                if (dis < distance) {
-//                    distance = dis;
-//                    nearPoint = p;
-//                }
-//
-//            }
-//        }
-//        return nearPoint;
-//    }
-//
-//    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
-//        double distance = Double.POSITIVE_INFINITY;
-//        GeoPoint nearPoint = null;
-//        if (geoPointList != null) {
-//            for (GeoPoint geo : geoPointList) {
-//                double dis = geo.point.distance(p0);
-//                if (dis < distance) {
-//                    distance = dis;
-//                    nearPoint = geo;
-//                }
-//
-//            }
-//        }
-//        return nearPoint;
-//    }
-//}

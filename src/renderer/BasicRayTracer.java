@@ -1,5 +1,6 @@
 package renderer;
 
+import elements.DirectionalLight;
 import elements.LightSource;
 import geometries.Intersectable;
 
@@ -234,17 +235,54 @@ public class BasicRayTracer extends RayTracerBase {
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
-        double lightDistance = light.getDistance(geoPoint.point);
-        var intersections = scene.geometries.findGeoIntersections(lightRay);
-        if (intersections == null) return 1.0;
-        double ktr = 1.0;
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0) {
-                ktr *= gp.geometry.getMaterial().kT;
-                if (ktr < MIN_CALC_COLOR_K) return 0.0;
+        // if the light source is Directional, there isn't softshadow
+        if (light instanceof DirectionalLight) {
+            double lightDistance = light.getDistance(geoPoint.point);
+            var intersections = scene.geometries.findGeoIntersections(lightRay);
+            if (intersections == null) return 1.0;
+            double ktr = 1.0;
+            for (GeoPoint gp : intersections) {
+                if (alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0) {
+                    ktr *= gp.geometry.getMaterial().kT;
+                    if (ktr < MIN_CALC_COLOR_K) return 0.0;
+                }
             }
+            return ktr;
+        } else {
+            // get list of several rays
+            LinkedList<Ray> listRay = lightRay.getListRays(light.getBulb().getCenter(), (int) light.getBulb().getRadius());
+
+            double lightDistance = light.getDistance(geoPoint.point);
+
+            double ktr = 1.0;
+            double sumKtr = 0;//sum ktr of all intersection points for all rays
+            boolean flagIntersection = false;
+
+            for (Ray r : listRay) {
+                List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
+
+                // if the ray 'r' don't crosses any geometries, it's like it crosses geometries transparent
+                if (intersecOneRay == null) ktr = 1.0;
+                else {
+                    flagIntersection = true;//there is at least one intersection point
+                    // calculate an accumulation of ktr for all geometries crossed by the ray 'r'
+                    for (GeoPoint gpt : intersecOneRay) {
+                        ktr *= gpt.geometry.getMaterial().kT;
+                    }
+                }
+
+                sumKtr += ktr;
+                ktr = 1.0;
+            }
+
+            if (flagIntersection == false)//if there aren't any intersection
+                return 1.0;
+
+            int numRay = listRay.size();
+            double ktrAverage = sumKtr / numRay;
+
+            return ktrAverage;
         }
-        return ktr;
     }
 
     private GeoPoint findClosestIntersection(Ray ray) {
