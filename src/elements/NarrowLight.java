@@ -1,5 +1,6 @@
 package elements;
 
+import geometries.Sphere;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
@@ -53,5 +54,10 @@ public class NarrowLight extends Light implements LightSource {
     @Override
     public double getDistance(Point3D point) {
         return 0;
+    }
+
+    @Override
+    public Sphere getBulb() {
+        return null;
     }
 }

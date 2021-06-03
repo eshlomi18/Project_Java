@@ -1,5 +1,6 @@
 package elements;
 
+import geometries.Sphere;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
@@ -10,6 +11,8 @@ public class PointLight extends Light implements LightSource {
     private double kC;
     private double kL;
     private double kQ;
+    protected Sphere bulb;
+    protected static final int RADIUS=5;
 
     /***
      *
@@ -35,6 +38,8 @@ public class PointLight extends Light implements LightSource {
     protected PointLight(Color intensity, Point3D position, double kC, double kL, double kQ) {
         super(intensity);
         this.position = position;
+
+
         this.kC = kC;
         this.kL = kL;
         this.kQ = kQ;
@@ -58,6 +63,11 @@ public class PointLight extends Light implements LightSource {
     @Override
     public double getDistance(Point3D p) {
         return position.distance(p);
+    }
+
+    @Override
+    public Sphere getBulb() {
+        return new Sphere(RADIUS,this.position);
     }
 
 
