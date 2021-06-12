@@ -2,6 +2,7 @@ package renderer;
 
 import elements.DirectionalLight;
 import elements.LightSource;
+import geometries.Geometries;
 import geometries.Intersectable;
 
 import static geometries.Intersectable.GeoPoint;
@@ -10,6 +11,7 @@ import static primitives.Util.alignZero;
 import primitives.*;
 import scene.Scene;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,10 +26,14 @@ public class BasicRayTracer extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private static final double INITIAL_K = 1.0;
+    private int _threads = 1;
+    private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+    private boolean _print = false; // printing progress percentage
 
     public BasicRayTracer(Scene scene) {
         super(scene);
     }
+
 
     /**
      * method suppose to return us
@@ -334,6 +340,46 @@ public class BasicRayTracer extends RayTracerBase {
 
         return new Color((int) r, (int) g, (int) b);
     }
+
+    /**
+     * this function calculate intersections points after the improvement
+     *
+     * @param ray                          ray of the light
+     * @param max                          distance max
+     * @param improvementCheckIntersection boolean activation of the improvement
+     * @return intersectionPoints
+     */
+    private List<GeoPoint> improvementIntersection(Ray ray, double max, boolean improvementCheckIntersection) {
+        Scene.Node<Geometries> root = scene.getGeometriesTree();
+//        List<Intersectable> box =root.getData().getGeometries();
+        Geometries box2 = root.getData();
+
+        // check intersection with the Outer Box containing all geometries of the scene
+        List<GeoPoint> intersectionPointsWithOuterBox = box2.findGeoIntersections(ray, max);
+        if (intersectionPointsWithOuterBox == null)
+            return null;
+
+        //return _scene.getGeometries().findGeoIntersections(ray, max);
+
+        List<GeoPoint> interPointsWithInnerBox = null;
+        List<GeoPoint> intersectionPointsWithGeometries = null;
+        List<Scene.Node<Geometries>> children = scene.getGeometriesTree().getChildren();
+        for (Scene.Node<Geometries> g : children) {
+            interPointsWithInnerBox = g.getData().findGeoIntersections(ray, max);
+            if (interPointsWithInnerBox != null) {
+                List<GeoPoint> interPointsGeometry = g.getChildren().get(0).getData().findGeoIntersections(ray, max);
+                if (interPointsGeometry != null) {
+                    //initialization of the list for the first intersection's point with the geometry
+                    if (intersectionPointsWithGeometries == null)//
+                        intersectionPointsWithGeometries = new ArrayList();
+                    for (GeoPoint gp : interPointsGeometry)
+                        intersectionPointsWithGeometries.add(gp);
+                }
+            }
+        }
+        return intersectionPointsWithGeometries;
+    }
+
 
 }
 

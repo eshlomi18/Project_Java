@@ -14,13 +14,12 @@ import static primitives.Util.alignZero;
  */
 public class Sphere extends Geometry {
     private Point3D center;
-
-
     private double radius;
 
     public Sphere(double radius, Point3D center) {
         this.radius = radius;
         this.center = center;
+
     }
 
     public Point3D getCenter() {

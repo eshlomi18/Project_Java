@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.beans.VetoableChangeListener;
 import java.util.List;
-
+import static geometries.Geometries.*;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -26,6 +26,13 @@ public class Plane extends Geometry {
         Vector N = U.crossProduct(V);
         N.normalize();
         this.normal = N;
+
+        Xmax = MAX;
+        Ymax = MAX;
+        Zmax = MAX;
+        Xmin = MIN;
+        Ymin = MIN;
+        Zmin = MIN;
     }
 
     public Plane(Point3D q0, Vector normal) {

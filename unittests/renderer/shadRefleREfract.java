@@ -47,7 +47,9 @@ public class shadRefleREfract {
         Render render = new Render() //
                 .setImageWriter(new ImageWriter("alltogether", 600, 600)) //
                 .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
+                .setRayTracer(new BasicRayTracer(scene))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }

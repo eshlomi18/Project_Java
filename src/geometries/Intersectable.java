@@ -40,6 +40,14 @@ public interface Intersectable {
                 .collect(Collectors.toList());
     }
 
+    double getXmin();
+    double getYmin();
+    double getZmin();
+    double getXmax();
+    double getYmax();
+    double getZmax();
+
+
 
 
 }

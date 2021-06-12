@@ -36,7 +36,9 @@ public class nicePict {
         Render render = new Render() //
                 .setImageWriter(new ImageWriter("nicePict", 500, 500)) //
                 .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
+                .setRayTracer(new BasicRayTracer(scene))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
