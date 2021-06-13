@@ -25,6 +25,10 @@ import java.util.List;
 public class BasicRayTracer extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final boolean GLOSSY_SURFACE = false;
+    private static final boolean SOFT_SHADOW = false;
+    private static final boolean ALGO_IMPROV = false;
+
     private static final double INITIAL_K = 1.0;
     private int _threads = 1;
     private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
@@ -92,40 +96,42 @@ public class BasicRayTracer extends RayTracerBase {
         Ray refractedRay = new Ray(point, v, n);
         List<Ray> list = new LinkedList<>();
         list.add(refractedRay);
+        if (GLOSSY_SURFACE) {
+            Vector v1 = Ver(refractedRay).normalize().scale(0.026); // Multiply the vertical vector in tan (1.5)
+            Vector v2 = refractedRay.getDir().crossProduct(v1).scale(0.026); // Vertical vector to v1 and refractedRay
 
-        Vector v1 = Ver(refractedRay).normalize().scale(0.026); // Multiply the vertical vector in tan (1.5)
-        Vector v2 = refractedRay.getDir().crossProduct(v1).scale(0.026); // Vertical vector to v1 and refractedRay
+            Point3D start = refractedRay.getP0();
 
-        Point3D start = refractedRay.getP0();
+            Vector r1 = refractedRay.getDir().add(v1).add(v2);
+            Vector r2 = refractedRay.getDir().add(v1).subtract(v2);
+            Vector r3 = refractedRay.getDir().subtract(v1).add(v2);
+            Vector r4 = refractedRay.getDir().subtract(v1);
+            Vector r5 = refractedRay.getDir().add(v1);
+            Vector r6 = refractedRay.getDir().subtract(v1);
+            Vector r7 = refractedRay.getDir().add(v2);
+            Vector r8 = refractedRay.getDir().subtract(v2);
 
-        Vector r1 = refractedRay.getDir().add(v1).add(v2);
-        Vector r2 = refractedRay.getDir().add(v1).subtract(v2);
-        Vector r3 = refractedRay.getDir().subtract(v1).add(v2);
-        Vector r4 = refractedRay.getDir().subtract(v1);
-        Vector r5 = refractedRay.getDir().add(v1);
-        Vector r6 = refractedRay.getDir().subtract(v1);
-        Vector r7 = refractedRay.getDir().add(v2);
-        Vector r8 = refractedRay.getDir().subtract(v2);
+            Ray refracted1 = new Ray(start, r1);
+            Ray refracted2 = new Ray(start, r2);
+            Ray refracted3 = new Ray(start, r3);
+            Ray refracted4 = new Ray(start, r4);
+            Ray refracted5 = new Ray(start, r5);
+            Ray refracted6 = new Ray(start, r6);
+            Ray refracted7 = new Ray(start, r7);
+            Ray refracted8 = new Ray(start, r8);
 
-        Ray refracted1 = new Ray(start, r1);
-        Ray refracted2 = new Ray(start, r2);
-        Ray refracted3 = new Ray(start, r3);
-        Ray refracted4 = new Ray(start, r4);
-        Ray refracted5 = new Ray(start, r5);
-        Ray refracted6 = new Ray(start, r6);
-        Ray refracted7 = new Ray(start, r7);
-        Ray refracted8 = new Ray(start, r8);
-
-        list.add(refracted1);
-        list.add(refracted2);
-        list.add(refracted3);
-        list.add(refracted4);
-        list.add(refracted5);
-        list.add(refracted6);
-        list.add(refracted7);
-        list.add(refracted8);
-
+            list.add(refracted1);
+            list.add(refracted2);
+            list.add(refracted3);
+            list.add(refracted4);
+            list.add(refracted5);
+            list.add(refracted6);
+            list.add(refracted7);
+            list.add(refracted8);
+        }
         return list;
+
+
     }
 
     /***
@@ -136,47 +142,51 @@ public class BasicRayTracer extends RayTracerBase {
      * @return
      */
     private List<Ray> constructReflectedRay(Point3D point, Vector v, Vector n) {
+
+
         double temp = v.dotProduct(n) * 2;
         Vector r = v.subtract(n.scale(temp));
         Ray reflectedRay = new Ray(point, r, n);
         List<Ray> list = new LinkedList<>();
         list.add(reflectedRay);
+        if (GLOSSY_SURFACE) {
+            Vector v1 = Ver(reflectedRay).normalize().scale(0.026); // Multiply the vertical vector in tan (1.5)
+            Vector v2 = reflectedRay.getDir().crossProduct(v1).scale(0.026); // Vertical vector to v1 and refractedRay
 
-        Vector v1 = Ver(reflectedRay).normalize().scale(0.026); // Multiply the vertical vector in tan (1.5)
-        Vector v2 = reflectedRay.getDir().crossProduct(v1).scale(0.026); // Vertical vector to v1 and refractedRay
+            Point3D start = reflectedRay.getP0();
 
-        Point3D start = reflectedRay.getP0();
+            Vector r1 = reflectedRay.getDir().add(v1).add(v2);
+            Vector r2 = reflectedRay.getDir().add(v1).subtract(v2);
+            Vector r3 = reflectedRay.getDir().subtract(v1).add(v2);
+            Vector r4 = reflectedRay.getDir().subtract(v1);
+            Vector r5 = reflectedRay.getDir().add(v1);
+            Vector r6 = reflectedRay.getDir().subtract(v1);
+            Vector r7 = reflectedRay.getDir().add(v2);
+            Vector r8 = reflectedRay.getDir().subtract(v2);
 
-        Vector r1 = reflectedRay.getDir().add(v1).add(v2);
-        Vector r2 = reflectedRay.getDir().add(v1).subtract(v2);
-        Vector r3 = reflectedRay.getDir().subtract(v1).add(v2);
-        Vector r4 = reflectedRay.getDir().subtract(v1);
-        Vector r5 = reflectedRay.getDir().add(v1);
-        Vector r6 = reflectedRay.getDir().subtract(v1);
-        Vector r7 = reflectedRay.getDir().add(v2);
-        Vector r8 = reflectedRay.getDir().subtract(v2);
-
-        Ray reflected1 = new Ray(start, r1);
-        Ray reflected2 = new Ray(start, r2);
-        Ray reflected3 = new Ray(start, r3);
-        Ray reflected4 = new Ray(start, r4);
-        Ray reflected5 = new Ray(start, r5);
-        Ray reflected6 = new Ray(start, r6);
-        Ray reflected7 = new Ray(start, r7);
-        Ray reflected8 = new Ray(start, r8);
-
-
-        list.add(reflected1);
-        list.add(reflected2);
-        list.add(reflected3);
-        list.add(reflected4);
-        list.add(reflected5);
-        list.add(reflected6);
-        list.add(reflected7);
-        list.add(reflected8);
+            Ray reflected1 = new Ray(start, r1);
+            Ray reflected2 = new Ray(start, r2);
+            Ray reflected3 = new Ray(start, r3);
+            Ray reflected4 = new Ray(start, r4);
+            Ray reflected5 = new Ray(start, r5);
+            Ray reflected6 = new Ray(start, r6);
+            Ray reflected7 = new Ray(start, r7);
+            Ray reflected8 = new Ray(start, r8);
 
 
+            list.add(reflected1);
+            list.add(reflected2);
+            list.add(reflected3);
+            list.add(reflected4);
+            list.add(reflected5);
+            list.add(reflected6);
+            list.add(reflected7);
+            list.add(reflected8);
+
+
+        }
         return list;
+
     }
 
     private Color calcGlobalEffect(List<Ray> ray, int level, double kx, double kkx) {
@@ -241,11 +251,12 @@ public class BasicRayTracer extends RayTracerBase {
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
+
         // if the light source is Directional, there isn't softshadow
-        if (light instanceof DirectionalLight) {
+        if (light instanceof DirectionalLight || !SOFT_SHADOW) {
             double lightDistance = light.getDistance(geoPoint.point);
-            var intersections = improvementIntersection(lightRay,Double.POSITIVE_INFINITY);
-           // var intersections = scene.geometries.findGeoIntersections(lightRay);
+            var intersections = improvementIntersection(lightRay, Double.POSITIVE_INFINITY);
+            // var intersections = scene.geometries.findGeoIntersections(lightRay);
             if (intersections == null) return 1.0;
             double ktr = 1.0;
             for (GeoPoint gp : intersections) {
@@ -266,8 +277,10 @@ public class BasicRayTracer extends RayTracerBase {
             boolean flagIntersection = false;
 
             for (Ray r : listRay) {
-                 List<GeoPoint> intersecOneRay = improvementIntersection(r,lightDistance);
-                //List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
+                //    List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
+
+
+                List<GeoPoint> intersecOneRay = improvementIntersection(r, lightDistance);
 
                 // if the ray 'r' don't crosses any geometries, it's like it crosses geometries transparent
                 if (intersecOneRay == null) ktr = 1.0;
@@ -295,11 +308,11 @@ public class BasicRayTracer extends RayTracerBase {
 
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> gp = scene.geometries.findGeoIntersections(ray);
-        List<GeoPoint> intersectionPoints = improvementIntersection(ray,Double.POSITIVE_INFINITY);
+        List<GeoPoint> intersectionPoints = improvementIntersection(ray, Double.POSITIVE_INFINITY);
 
         GeoPoint closestPoint = ray.findClosestGeoPoint(gp);
-        if (closestPoint == null)
-            return null;
+        if (closestPoint == null || !ALGO_IMPROV)
+            return closestPoint;
 
         double distanceToLastPoint = gp.get(0).point.distance(ray.getP0());
         if (distanceToLastPoint < Double.POSITIVE_INFINITY) {
@@ -354,6 +367,7 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * this function calculate intersections points after the improvement
+     *
      * @param ray ray of the light
      * @param max distance max
      * @return intersectionPoints
@@ -366,8 +380,8 @@ public class BasicRayTracer extends RayTracerBase {
 
         // check intersection with the Outer Box containing all geometries of the scene
         List<GeoPoint> intersectionPointsWithOuterBox = box2.findGeoIntersections(ray, max);
-        if (intersectionPointsWithOuterBox == null)
-            return null;
+        if (intersectionPointsWithOuterBox == null || !ALGO_IMPROV)
+            return scene.getGeometries().findGeoIntersections(ray, max);
 
         //return _scene.getGeometries().findGeoIntersections(ray, max);
 
