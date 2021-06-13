@@ -4,6 +4,7 @@ import elements.AmbientLight;
 import elements.LightSource;
 import geometries.Box;
 import geometries.Geometries;
+import geometries.Intersectable;
 import primitives.Color;
 
 import java.util.ArrayList;
@@ -187,6 +188,30 @@ public class Scene {
     public Scene setlights(LinkedList<LightSource> lights) {
         this.lights = lights;
         return this;
+
+    }
+    //endregion
+
+    /**
+     * add many geometries in the the group of geometries of the picture
+     *
+     * @param geometries type Intersectable
+     */
+    public void addGeometries(Intersectable... geometries) {
+        this.geometries.add(geometries);
+/*        for(int i=0;i<geometries.length;i++)
+            this.geometries.add(geometries[i]);*/
+    }
+
+    /**
+     * add an many ArrayList of many geometries in the the group of geometries of the picture
+     *
+     * @param arrayGeo list with which we are going to add to our geometries
+     */
+    public void addGeometries(ArrayList<Intersectable>... arrayGeo) {
+        for (int i = 0; i < arrayGeo.length; i++)
+            for (Intersectable geo : arrayGeo[i])
+                this.geometries.add(geo);
     }
 
     /**
