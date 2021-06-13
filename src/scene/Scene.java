@@ -188,4 +188,40 @@ public class Scene {
         this.lights = lights;
         return this;
     }
+
+    /**
+     * add grop of geometries to set them in hierarchical structure
+     *
+     * @param geometriesParam table of geometries
+     */
+    public void addGroupGeometries(Geometries... geometriesParam) {
+        Box rootBox = new Box();//box containing all geometries in parameters
+        rootBox.addGeometries(geometriesParam);//calculate the size of the box
+
+        Node<Geometries> root = new Node<>(rootBox);
+
+        for (Geometries g : geometriesParam) {
+            root.addChild(new Node<Geometries>(new Box(g)));
+        }
+
+        int index = 0;
+        for (Node<Geometries> n : root.getChildren()) {
+            n.addChild(new Node(geometriesParam[index]));
+            index++;
+        }
+
+        geometriesTree = root;
+    }
+
+
+    /**
+     * add many lights in the group of lights of the scene
+     *
+     * @param lights light
+     */
+    public void addLights(LightSource... lights) {
+        for (int i = 0; i < lights.length; i++)
+            this.lights.add(lights[i]);
+    }
+
 }

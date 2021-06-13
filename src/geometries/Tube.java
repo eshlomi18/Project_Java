@@ -20,6 +20,12 @@ public class Tube extends Geometry {
     public Tube(Ray axisRay, Double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
+        Xmax = MAX;
+        Ymax = MAX;
+        Zmax = MAX;
+        Xmin = MIN;
+        Ymin = MIN;
+        Zmin = MIN;
     }
 
     public Double getRadius() {

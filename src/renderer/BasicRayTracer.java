@@ -244,7 +244,8 @@ public class BasicRayTracer extends RayTracerBase {
         // if the light source is Directional, there isn't softshadow
         if (light instanceof DirectionalLight) {
             double lightDistance = light.getDistance(geoPoint.point);
-            var intersections = scene.geometries.findGeoIntersections(lightRay);
+            var intersections = improvementIntersection(lightRay,Double.POSITIVE_INFINITY);
+           // var intersections = scene.geometries.findGeoIntersections(lightRay);
             if (intersections == null) return 1.0;
             double ktr = 1.0;
             for (GeoPoint gp : intersections) {
@@ -265,7 +266,8 @@ public class BasicRayTracer extends RayTracerBase {
             boolean flagIntersection = false;
 
             for (Ray r : listRay) {
-                List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
+                 List<GeoPoint> intersecOneRay = improvementIntersection(r,lightDistance);
+                //List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
 
                 // if the ray 'r' don't crosses any geometries, it's like it crosses geometries transparent
                 if (intersecOneRay == null) ktr = 1.0;
@@ -293,7 +295,16 @@ public class BasicRayTracer extends RayTracerBase {
 
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> gp = scene.geometries.findGeoIntersections(ray);
+        List<GeoPoint> intersectionPoints = improvementIntersection(ray,Double.POSITIVE_INFINITY);
+
         GeoPoint closestPoint = ray.findClosestGeoPoint(gp);
+        if (closestPoint == null)
+            return null;
+
+        double distanceToLastPoint = gp.get(0).point.distance(ray.getP0());
+        if (distanceToLastPoint < Double.POSITIVE_INFINITY) {
+            closestPoint = gp.get(0);
+        }
         return closestPoint;
     }
 
@@ -343,13 +354,12 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * this function calculate intersections points after the improvement
-     *
-     * @param ray                          ray of the light
-     * @param max                          distance max
-     * @param improvementCheckIntersection boolean activation of the improvement
+     * @param ray ray of the light
+     * @param max distance max
      * @return intersectionPoints
      */
-    private List<GeoPoint> improvementIntersection(Ray ray, double max, boolean improvementCheckIntersection) {
+    private List<GeoPoint> improvementIntersection(Ray ray, double max) {
+
         Scene.Node<Geometries> root = scene.getGeometriesTree();
 //        List<Intersectable> box =root.getData().getGeometries();
         Geometries box2 = root.getData();
