@@ -1,5 +1,8 @@
 package renderer;
 
+/**
+ * exception management
+ */
 public class MissingResourcesException extends Exception {
     public MissingResourcesException(String msg) {
         super(msg);

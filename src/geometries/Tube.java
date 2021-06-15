@@ -17,6 +17,11 @@ public class Tube extends Geometry {
     protected Ray axisRay;
     protected Double radius;
 
+    /**
+     * constructor
+     * @param axisRay
+     * @param radius
+     */
     public Tube(Ray axisRay, Double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
@@ -28,10 +33,18 @@ public class Tube extends Geometry {
         Zmin = MIN;
     }
 
+    /**
+     * getter
+     * @return radius
+     */
     public Double getRadius() {
         return radius;
     }
 
+    /**
+     * getter
+     * @return axisRay
+     */
     public Ray getAxisRay() {
         return axisRay;
     }
@@ -44,6 +57,11 @@ public class Tube extends Geometry {
                 '}';
     }
 
+    /**
+     * getter
+     * @param point3D
+     * @return normal vector
+     */
     @Override
     public Vector getNormal(Point3D point3D) {
         Point3D P0 = axisRay.getP0();

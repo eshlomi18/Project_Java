@@ -11,6 +11,11 @@ public interface Intersectable {
         public Geometry geometry;
         public Point3D point;
 
+        /**
+         * constructor
+         * @param geometry
+         * @param point
+         */
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;
             this.point = point;

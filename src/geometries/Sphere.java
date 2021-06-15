@@ -16,6 +16,11 @@ public class Sphere extends Geometry {
     private Point3D center;
     private double radius;
 
+    /**
+     * constructor
+     * @param radius
+     * @param center
+     */
     public Sphere(double radius, Point3D center) {
         this.radius = radius;
         this.center = center;
@@ -28,10 +33,18 @@ public class Sphere extends Geometry {
 
     }
 
+    /**
+     * getter
+     * @return center
+     */
     public Point3D getCenter() {
         return center;
     }
 
+    /**
+     * getter
+     * @return radius
+     */
     public double getRadius() {
         return radius;
     }
@@ -43,6 +56,11 @@ public class Sphere extends Geometry {
                 '}';
     }
 
+    /**
+     * getter
+     * @param point3D
+     * @return normal vector from point to center
+     */
     @Override
     public Vector getNormal(Point3D point3D) {
         if (point3D.equals(center)) {

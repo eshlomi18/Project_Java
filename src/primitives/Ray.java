@@ -28,6 +28,12 @@ public class Ray {
         dir.normalize();
     }
 
+    /**
+     * constructor
+     * @param point
+     * @param dir
+     * @param n
+     */
     public Ray(Point3D point, Vector dir, Vector n) {
         Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : -DELTA);
         Point3D p = point.add(delta);
@@ -69,10 +75,20 @@ public class Ray {
                 '}';
     }
 
+    /**
+     * getter
+     * @param t
+     * @return
+     */
     public Point3D getPoint(double t) {
         return p0.add(dir.scale(t));
     }
 
+    /**
+     * Finds the closest point to the beginning of the ray
+     * @param point3DList
+     * @return the closest point to the beginning of the ray
+     */
     public Point3D findClosestPoint(List<Point3D> point3DList) {
 
         double distance = Double.POSITIVE_INFINITY;
@@ -89,7 +105,11 @@ public class Ray {
         }
         return nearPoint;
     }
-
+    /**
+     * Finds the closest point to the beginning of the ray
+     * @param geoPointList
+     * @return the closest point to the beginning of the ray
+     */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
         double distance = Double.POSITIVE_INFINITY;
         GeoPoint nearPoint = null;

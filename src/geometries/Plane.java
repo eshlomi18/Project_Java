@@ -18,6 +18,12 @@ public class Plane extends Geometry {
     private Point3D q0;
     private Vector normal;
 
+    /**
+     * constructor
+     * @param q1
+     * @param q2
+     * @param q3
+     */
     public Plane(Point3D q1, Point3D q2, Point3D q3) {
         this.q0 = q1;
 
@@ -35,16 +41,28 @@ public class Plane extends Geometry {
         Zmin = MIN;
     }
 
+    /**
+     * constructor
+     * @param q0
+     * @param normal
+     */
     public Plane(Point3D q0, Vector normal) {
         this.q0 = q0;
         this.normal = normal.normalized();
     }
 
+    /**
+     * getter
+     * @return q0
+     */
     public Point3D getQ0() {
         return q0;
     }
 
-
+    /**
+     * getter
+     * @return normal vector
+     */
     public Vector getNormal() {
         return normal;
     }
@@ -56,6 +74,11 @@ public class Plane extends Geometry {
                 '}';
     }
 
+    /**
+     * getter
+     * @param point3D
+     * @return normal vector
+     */
     @Override
     public Vector getNormal(Point3D point3D) {
         return normal;

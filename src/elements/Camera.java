@@ -49,6 +49,14 @@ public class Camera {
         return this;
     }
 
+    /**
+     * constructing ray passing trough pixel(i,j) of the view plane
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D Pc = p0.add(vTo.scale(distance));
 
@@ -75,18 +83,34 @@ public class Camera {
 
     }
 
+    /**
+     * getter
+     * @return p0
+     */
     public Point3D getP0() {
         return p0;
     }
 
+    /***
+     * getter
+     * @return vTo
+     */
     public Vector getvTo() {
         return vTo;
     }
 
+    /**
+     * getter
+     * @return vUp
+     */
     public Vector getvUp() {
         return vUp;
     }
 
+    /**
+     * getter
+     * @return vRight
+     */
     public Vector getvRight() {
         return vRight;
     }
