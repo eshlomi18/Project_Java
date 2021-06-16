@@ -18,6 +18,6 @@
  
  ![](reflectionTwoSpheresMirrored.png)
  ## algorithm improvement
-since after these improvement the execution time was pretty long we have made our programe running on 3 threads and we have improved our algorithme (based on box)
+since after these improvement the execution time was pretty long we have made our program running on 3 threads and we have improved our algorithm (based on box)
 pictures before and after algorithme improvement
 
