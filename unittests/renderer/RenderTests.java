@@ -23,6 +23,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() throws MissingResourcesException, UnsupportedOperationException {
+
         Scene scene = new Scene("Test scene")//
                 .setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
                 .setBackground(new Color(75, 127, 90));

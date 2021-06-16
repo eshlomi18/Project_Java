@@ -23,6 +23,8 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleInitial() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.geometries.add( //
                 new Sphere(60, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
@@ -47,6 +49,8 @@ public class ShadowTests {
 
     @Test
     public void sphereTriangleInitial1() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.geometries.add( //
                 new Sphere(60, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
@@ -71,6 +75,8 @@ public class ShadowTests {
 
     @Test
     public void sphereTriangleInitial2() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.geometries.add( //
                 new Sphere(60, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
@@ -95,6 +101,8 @@ public class ShadowTests {
 
     @Test
     public void sphereTriangleInitial3() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.geometries.add( //
                 new Sphere(60, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
@@ -119,6 +127,8 @@ public class ShadowTests {
 
     @Test
     public void sphereTriangleInitial4() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.geometries.add( //
                 new Sphere(60, new Point3D(0, 0, -200)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
@@ -147,6 +157,8 @@ public class ShadowTests {
      */
     @Test
     public void trianglesSphere() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
         scene.geometries.add( //

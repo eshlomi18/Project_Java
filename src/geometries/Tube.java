@@ -19,22 +19,18 @@ public class Tube extends Geometry {
 
     /**
      * constructor
+     *
      * @param axisRay
      * @param radius
      */
     public Tube(Ray axisRay, Double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
-        Xmax = MAX;
-        Ymax = MAX;
-        Zmax = MAX;
-        Xmin = MIN;
-        Ymin = MIN;
-        Zmin = MIN;
     }
 
     /**
      * getter
+     *
      * @return radius
      */
     public Double getRadius() {
@@ -43,6 +39,7 @@ public class Tube extends Geometry {
 
     /**
      * getter
+     *
      * @return axisRay
      */
     public Ray getAxisRay() {
@@ -59,6 +56,7 @@ public class Tube extends Geometry {
 
     /**
      * getter
+     *
      * @param point3D
      * @return normal vector
      */
@@ -87,7 +85,7 @@ public class Tube extends Geometry {
 
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray ,double maxDistance) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return null;
     }
 

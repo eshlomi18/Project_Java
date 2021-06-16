@@ -18,6 +18,12 @@ public class Plane extends Geometry {
     private Point3D q0;
     private Vector normal;
 
+    private void buildBoundingBox(){
+        if (normal.getHead().getX() == 0 && normal.getHead().getZ()==0){
+            this.box._max_Y = q0.getY();
+            this.box._min_Y = q0.getY();
+        }
+    }
     /**
      * constructor and it calculate the normal vector
      * @param q1 the first point
@@ -33,12 +39,12 @@ public class Plane extends Geometry {
         N.normalize();
         this.normal = N;
 
-        Xmax = MAX;
-        Ymax = MAX;
-        Zmax = MAX;
-        Xmin = MIN;
-        Ymin = MIN;
-        Zmin = MIN;
+      // Xmax = MAX;
+      // Ymax = MAX;
+      // Zmax = MAX;
+      // Xmin = MIN;
+      // Ymin = MIN;
+      // Zmin = MIN;
     }
 
     /**

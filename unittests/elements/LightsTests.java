@@ -37,14 +37,23 @@ public class LightsTests {
      */
     @Test
     public void sphereDirectional() throws MissingResourcesException, UnsupportedOperationException {
+
+
         scene1.geometries.add(sphere);
         scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(1, 1, -1)));
 
         ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 500, 500);
-        Render render = new Render()//
+       // Render render = new Render()//
+       //         .setImageWriter(imageWriter) //
+       //         .setCamera(camera1) //
+       //         .setRayTracer(new BasicRayTracer(scene1));
+
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new BasicRayTracer(scene1));
+                .setRayTracer(new BasicRayTracer(scene1))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -59,10 +68,12 @@ public class LightsTests {
                 .setKl(0.00001).setKq(0.000001));
 
         ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
-        Render render = new Render()//
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new BasicRayTracer(scene1));
+                .setRayTracer(new BasicRayTracer(scene1))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -77,10 +88,12 @@ public class LightsTests {
                 .setKl(0.00001).setKq(0.00000001));
 
         ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
-        Render render = new Render()//
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new BasicRayTracer(scene1));
+                .setRayTracer(new BasicRayTracer(scene1))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -94,10 +107,12 @@ public class LightsTests {
         scene1.lights.add(new DirectionalLight(new Color(200, 300, 50), new Vector(1, 1, -1)));
 
         ImageWriter imageWriter = new ImageWriter("SphereMultiLightSource", 500, 500);
-        Render render = new Render()//
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new BasicRayTracer(scene1));
+                .setRayTracer(new BasicRayTracer(scene1))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -124,16 +139,20 @@ public class LightsTests {
      */
     @Test
     public void trianglesPoint() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)), //
                 triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
         scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130)) //
                 .setKl(0.0005).setKq(0.0005));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
-        Render render = new Render()//
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera2) //
-                .setRayTracer(new BasicRayTracer(scene2));
+                .setRayTracer(new BasicRayTracer(scene2))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -143,16 +162,20 @@ public class LightsTests {
      */
     @Test
     public void trianglesSpot() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
         scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
                 triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
         scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1)) //
                 .setKl(0.0001).setKq(0.000005));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
-        Render render = new Render()//
+        Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera2) //
-                .setRayTracer(new BasicRayTracer(scene2));
+                .setRayTracer(new BasicRayTracer(scene2))
+                .setMultithreading(2)
+                .setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }

@@ -16,6 +16,8 @@ public class shadRefleREfract {
 
     @Test
     public void trianglesSphere() throws MissingResourcesException, UnsupportedOperationException {
+        Intersectable.set_actBoundingBox(true);
+
 
         scene.geometries.add( //
                 //new Tube(new Ray(new Point3D(-60,-20,40),new Vector(new Point3D( -20,-20,25))),20.0)
