@@ -76,9 +76,9 @@ public class Ray {
     }
 
     /**
-     * getter
-     * @param t
-     * @return
+     * getter - gets double and return the target on the ray
+     * @param t the scalar for the vector
+     * @return the desired target point
      */
     public Point3D getPoint(double t) {
         return p0.add(dir.scale(t));
@@ -86,7 +86,7 @@ public class Ray {
 
     /**
      * Finds the closest point to the beginning of the ray
-     * @param point3DList
+     * @param point3DList intersection point list
      * @return the closest point to the beginning of the ray
      */
     public Point3D findClosestPoint(List<Point3D> point3DList) {
@@ -107,7 +107,7 @@ public class Ray {
     }
     /**
      * Finds the closest point to the beginning of the ray
-     * @param geoPointList
+     * @param geoPointList A collection of points
      * @return the closest point to the beginning of the ray
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {

@@ -23,8 +23,8 @@ import java.util.List;
  * and has a calcColor method
  */
 public class BasicRayTracer extends RayTracerBase {
-    private static final int MAX_CALC_COLOR_LEVEL = 10;
-    private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final int MAX_CALC_COLOR_LEVEL = 10;//stop condition that represents the number of levels we want to enter in the recursion
+    private static final double MIN_CALC_COLOR_K = 0.001;// stop condition that make sure there are no more unnecessary recursions
     private static final boolean GLOSSY_SURFACE = false;
     private static final boolean SOFT_SHADOW = false;
     private static final boolean ALGO_IMPROV = false;
@@ -34,17 +34,20 @@ public class BasicRayTracer extends RayTracerBase {
     private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
     private boolean _print = false; // printing progress percentage
 
+    /**
+     * constructs a ray tracer object with a given scene
+     * @param scene the scene for ray tracing
+     */
     public BasicRayTracer(Scene scene) {
         super(scene);
     }
 
 
     /**
-     * method suppose to return us
-     * the color of a given pixel
+     * traces a given ray and returns the color of the hit object
      *
-     * @param ray
-     * @return
+     * @param ray the ray to trace
+     * @return the color of the hit object
      */
     @Override
     public Color traceRay(Ray ray) {
@@ -53,12 +56,8 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /***
-     *
-     * @param intersection
-     * @param ray
-     * @param level
-     * @param k
-     * @return
+     * calculate the color of point
+     * @return  the color of point
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
         Color color = scene.ambientLight.getIntensity()
@@ -89,7 +88,7 @@ public class BasicRayTracer extends RayTracerBase {
      * @param point
      * @param v
      * @param n
-     * @return
+     * @return new ray for the rafracted
      */
     private List<Ray> constructRefractedRay(Point3D point, Vector v, Vector n) {
 
@@ -139,7 +138,7 @@ public class BasicRayTracer extends RayTracerBase {
      * @param point
      * @param v
      * @param n
-     * @return
+     * @return new ray for the reflected
      */
     private List<Ray> constructReflectedRay(Point3D point, Vector v, Vector n) {
 
@@ -189,6 +188,14 @@ public class BasicRayTracer extends RayTracerBase {
 
     }
 
+    /**
+     *
+     * @param ray
+     * @param level
+     * @param kx
+     * @param kkx
+     * @return color with global effect
+     */
     private Color calcGlobalEffect(List<Ray> ray, int level, double kx, double kkx) {
         List<Color> colors = new LinkedList<>();
         for (Ray r : ray) {
@@ -198,6 +205,13 @@ public class BasicRayTracer extends RayTracerBase {
         return average(colors);
     }
 
+    /**
+     *
+     * @param geopoint
+     * @param inRay
+     * @param k
+     * @return color with local effect
+     */
     private Color calcLocalEffects(GeoPoint geopoint, Ray inRay, double k) {
         Color color = geopoint.geometry.getEmission();
         Vector v = inRay.getDir();
@@ -222,17 +236,43 @@ public class BasicRayTracer extends RayTracerBase {
         return color;
     }
 
+    /**
+     * help function that calculates the diffusion for each object
+     * @param kd diffusion coefficient of diffusion
+     * @param l the vector from the light source
+     * @param n the normal of the object
+     * @param lightIntensity the intensity of the light
+     * @return
+     */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
         double factor = kd * Math.abs(l.dotProduct(n));
         return lightIntensity.scale(factor);
     }
 
+    /**
+     * help function that calculates the specular for each object
+     * @param ks the discount factor of the specular
+     * @param l the vector from the light source
+     * @param n the normal of the object
+     * @param v the vector from the camera
+     * @param nShininess the value of the Shininess of the material
+     * @param lightIntensity the intensity of the light
+     * @return
+     */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.subtract(n.scale(2 * l.dotProduct(n)));
         double minusVr = v.dotProduct(r) * -1;
         return lightIntensity.scale(ks * Math.pow(Math.max(0, minusVr), nShininess));
     }
 
+    /**
+     * check if there is a particular shadow on a particular point
+     * @param light  LightSource
+     * @param l the vector from the light source
+     * @param n the normal of the object
+     * @param geopoint
+     * @return
+     */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geopoint.point, lightDirection, n); // refactored ray head move
@@ -305,7 +345,11 @@ public class BasicRayTracer extends RayTracerBase {
             return ktrAverage;
         }
     }
-
+    /**
+     * Finds the closest point to the beginning of the ray
+     * @param ray
+     * @return the closest point to the beginning of the ray
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> gp = scene.geometries.findGeoIntersections(ray);
         List<GeoPoint> intersectionPoints = improvementIntersection(ray, Double.POSITIVE_INFINITY);
@@ -346,7 +390,11 @@ public class BasicRayTracer extends RayTracerBase {
         return v;
     }
 
-
+    /**
+     *  calculate the avarage color of pixel
+     * @param list
+     * @return the avarage color
+     */
     private Color average(List<Color> list) {
         double r = 0, g = 0, b = 0;
 

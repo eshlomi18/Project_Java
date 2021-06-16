@@ -15,6 +15,12 @@ public class Camera {
     private double width;
     private double height;
 
+    /**
+     * constructor
+     * @param p0
+     * @param vTo
+     * @param vUp
+     */
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
         this.p0 = p0;
         this.vTo = vTo.normalized();
@@ -51,11 +57,11 @@ public class Camera {
 
     /**
      * constructing ray passing trough pixel(i,j) of the view plane
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
-     * @return
+     * @param nX width
+     * @param nY height
+     * @param j num pixels in column
+     * @param i num pixels in row
+     * @return ray that goes trough the pixel
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D Pc = p0.add(vTo.scale(distance));

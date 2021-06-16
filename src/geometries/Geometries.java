@@ -29,11 +29,19 @@ public class Geometries implements Intersectable {
         this.intersectables = new ArrayList<Intersectable>();
     }
 
+    /**
+     * constructor
+     * @param list  of Intersectable gemotries
+     */
     public  Geometries(Intersectable...list){
         this();
         add(list);
     }
 
+    /**
+     * add geometries to the list
+     * @param list The updated new list
+     */
     public void add(Intersectable... list) {
         Collections.addAll(intersectables, list);
     }
@@ -125,9 +133,9 @@ public class Geometries implements Intersectable {
 
     /**
      * find geo points intersections of ray and geometries
-     * @param ray
-     * @param maxDistance
-     * @return
+     * @param ray The cutting ray
+     * @param maxDistance the distance from the light
+     * @return list of GeoPoint intersections
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {

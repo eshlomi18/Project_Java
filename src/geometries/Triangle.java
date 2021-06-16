@@ -12,7 +12,10 @@ import static primitives.Util.isZero;
  * triangle shape at the moment nothing special
  */
 public class Triangle extends Polygon {
-
+    /**
+     * constructor
+     * @param vertices  vertices
+     */
     public Triangle(Point3D... vertices) {
         super(vertices);
 
@@ -24,6 +27,11 @@ public class Triangle extends Polygon {
         return "Triangle{} " + super.toString();
     }
 
+    /**
+     * getter
+     * @param point3D
+     * @return  polygon's vector normal
+     */
     @Override
     public Vector getNormal(Point3D point3D) {
         return super.getNormal(point3D);

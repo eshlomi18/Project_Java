@@ -13,8 +13,8 @@ public interface Intersectable {
 
         /**
          * constructor
-         * @param geometry
-         * @param point
+         * @param geometry The shape that is cut
+         * @param point The point where it is cut
          */
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;
@@ -37,6 +37,11 @@ public interface Intersectable {
 
     List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 
+    /**
+     * Calculates the points of intersection
+     * @param ray
+     * @return list of the points of intersection
+     */
     default List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null

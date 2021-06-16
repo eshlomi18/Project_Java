@@ -85,11 +85,17 @@ public class Tube extends Geometry {
 
     }
 
+
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray ,double maxDistance) {
         return null;
     }
 
+    /**
+     * Calculates the points of intersection of a ray with the tube and returns it
+     * @param ray The cutting ray
+     * @return list of intersection points
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         Vector vAxis = axisRay.getDir();

@@ -19,10 +19,10 @@ public class Plane extends Geometry {
     private Vector normal;
 
     /**
-     * constructor
-     * @param q1
-     * @param q2
-     * @param q3
+     * constructor and it calculate the normal vector
+     * @param q1 the first point
+     * @param q2 the second point
+     * @param q3 the third point
      */
     public Plane(Point3D q1, Point3D q2, Point3D q3) {
         this.q0 = q1;
@@ -84,6 +84,13 @@ public class Plane extends Geometry {
         return normal;
     }
 
+
+    /**
+     * Calculates the points of intersection of a ray with the plane and returns it
+     * @param ray The cutting ray
+     * @param maxDistance the distance from the light
+     * @return list intersections of GeoPoints
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
         Point3D P0 = ray.getP0();

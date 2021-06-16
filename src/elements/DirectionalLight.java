@@ -19,21 +19,40 @@ public class DirectionalLight extends Light implements LightSource {
         this.direction = direction.normalized();
     }
 
+    /**
+     * getter
+     * @param p
+     * @return
+     */
     @Override
     public Color getIntensity(Point3D p) {
         return super.getIntensity();
     }
 
+    /***
+     * getter
+     * @param p
+     * @return normal vector direction
+     */
     @Override
     public Vector getL(Point3D p) {
         return this.direction.normalize();
     }
 
+    /**
+     * getter
+     * @param point
+     * @return POSITIVE_INFINITY
+     */
     @Override
     public double getDistance(Point3D point) {
         return Double.POSITIVE_INFINITY;
     }
 
+    /**
+     * getter
+     * @return
+     */
     @Override
     public Sphere getBulb() {
         return  new Sphere(Double.POSITIVE_INFINITY, new Point3D( Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));

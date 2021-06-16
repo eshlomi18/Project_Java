@@ -70,8 +70,12 @@ public class Sphere extends Geometry {
     }
 
 
-
-
+    /**
+     * Calculates the points of intersection of a ray with the sphere and returns it
+     * @param ray The cutting ray
+     * @param maxDistance the distance from the light
+     * @return list intersections of GeoPoints
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 
