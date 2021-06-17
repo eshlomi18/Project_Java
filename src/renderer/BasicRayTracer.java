@@ -45,7 +45,6 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * traces a given ray and returns the color of the hit object
-     *
      * @param ray the ray to trace
      * @return the color of the hit object
      */
@@ -55,9 +54,13 @@ public class BasicRayTracer extends RayTracerBase {
         return closestPoint == null ? scene.background : calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K + 5);
     }
 
-    /***
-     * calculate the color of point
-     * @return  the color of point
+    /**
+     * get a point on a object and return the color of this point
+     * @param intersection the point in the object
+     * @param ray the ray that intersecting with the point
+     * @param level
+     * @param k How long the vector should be
+     * @return the color of the point
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
         Color color = scene.ambientLight.getIntensity()
@@ -67,7 +70,14 @@ public class BasicRayTracer extends RayTracerBase {
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray.getDir(), level, k));
     }
 
-
+    /**
+     * get a GeoPoint on a certain object and a ray and find the color in this point by considering all the effects(light)
+     * @param gp the intersection point in the object
+     * @param v The direction vector
+     * @param level
+     * @param k  How long the vector should be
+     * @return
+     */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
         Color color = Color.BLACK;
         Vector n = gp.geometry.getNormal(gp.point);
@@ -189,7 +199,7 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
-     *
+     * calculate the local effects on the color of all light sources
      * @param ray
      * @param level
      * @param kx
@@ -206,21 +216,21 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
-     *
-     * @param geopoint
-     * @param inRay
+     * calculate the local effects on the color of all light sources
+     * @param geopoint the point which we calculate its effects
+     * @param inRay from the camera
      * @param k
-     * @return color with local effect
+     * @return the local effect
      */
     private Color calcLocalEffects(GeoPoint geopoint, Ray inRay, double k) {
         Color color = geopoint.geometry.getEmission();
-        Vector v = inRay.getDir();
+        Vector v = inRay.getDir();//the vector from the camera
         Vector n = geopoint.geometry.getNormal((geopoint.point));
         double nv = alignZero(n.dotProduct(v));
         Material material = geopoint.geometry.getMaterial();
         int nShininess = material.nShininess;
         double kd = material.kD, ks = material.kS;
-
+        //go through the list of light sources and collect their effects
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(geopoint.point);
             double nl = alignZero(n.dotProduct(l));
@@ -228,6 +238,7 @@ public class BasicRayTracer extends RayTracerBase {
                 double ktr = transparency(lightSource, l, n, geopoint);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(geopoint.point).scale(ktr);
+                   //adding diffusion and specular calculation
                     color = color.add(calcDiffusive(material.kD, l, n, lightIntensity),
                             calcSpecular(material.kS, l, n, v, nShininess, lightIntensity));
                 }
@@ -287,7 +298,14 @@ public class BasicRayTracer extends RayTracerBase {
         return true;
     }
 
-
+    /**
+     * The level of transparency of the point we hit
+     * @param light LightSource
+     * @param l
+     * @param n
+     * @param geoPoint
+     * @return the color of the point
+     */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);

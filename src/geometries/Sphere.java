@@ -89,21 +89,22 @@ public class Sphere extends Geometry {
             }
 
         }
-        Vector u = center.subtract(p0);
-        double tm =alignZero(v.dotProduct(u));
-        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
-        if (d >= radius) {
+        Vector u = center.subtract(p0);//the vector from the center of the sphere to the head of the ray
+        double tm =alignZero(v.dotProduct(u));//the projection of u and v
+        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));//the distance between the line of the ray to the center of the sphere
+        if (d >= radius) {//d is bigger than the radius of the sphere - the radius doesn't touch the sphere
             return null;
         }
-        double th = alignZero(Math.sqrt(radius * radius - d * d));
-        double t1 = alignZero(tm - th);
-        double t2 = alignZero(tm + th);
+        double th = alignZero(Math.sqrt(radius * radius - d * d));//the distance between intersections point
+        double t1 = alignZero(tm - th);//the distance between the head of the ray to intersection point 1
+        double t2 = alignZero(tm + th);//the distance between the head of the ray to intersection point 2
 
         boolean t1Flag=alignZero(t1-maxDistance)<=0;
         boolean t2Flag=alignZero(t1-maxDistance)<=0;
         if (t1 > 0 && t2 > 0 && t2Flag && t2Flag) {
             return (List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2))));
         }
+        // intersections point are exist only if the distance is positive
         if (t1 > 0 && t1Flag) {
 
             return (List.of(new GeoPoint(this, ray.getPoint(t1))));

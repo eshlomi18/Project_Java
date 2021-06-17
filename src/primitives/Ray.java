@@ -126,6 +126,12 @@ public class Ray {
         return nearPoint;
     }
 
+    /**
+     * getter
+     * @param center
+     * @param radius
+     * @return list of rays
+     */
     public LinkedList<Ray> getListRays(Point3D center, int radius) {
         LinkedList<Ray> listRay = new LinkedList<Ray>();
         listRay.add(this);
