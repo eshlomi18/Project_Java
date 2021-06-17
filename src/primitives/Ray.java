@@ -18,7 +18,6 @@ public class Ray {
 
     /**
      * constructor
-     *
      * @param point3D 3D point
      * @param vector  vector
      */
@@ -43,7 +42,6 @@ public class Ray {
 
     /**
      * getter
-     *
      * @return start point p0
      */
     public Point3D getP0() {
@@ -52,7 +50,6 @@ public class Ray {
 
     /**
      * getter
-     *
      * @return ray direction
      */
     public Vector getDir() {
@@ -126,6 +123,12 @@ public class Ray {
         return nearPoint;
     }
 
+    /**
+     * create beam of rays for picture improvement
+     * @param center
+     * @param radius
+     * @return list of rays
+     */
     public LinkedList<Ray> getListRays(Point3D center, int radius) {
         LinkedList<Ray> listRay = new LinkedList<Ray>();
         listRay.add(this);

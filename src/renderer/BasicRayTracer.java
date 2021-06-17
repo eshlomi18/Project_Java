@@ -2,8 +2,6 @@ package renderer;
 
 import elements.DirectionalLight;
 import elements.LightSource;
-import geometries.Geometries;
-import geometries.Intersectable;
 
 import static geometries.Intersectable.GeoPoint;
 import static primitives.Util.alignZero;
@@ -45,7 +43,6 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * traces a given ray and returns the color of the hit object
-     *
      * @param ray the ray to trace
      * @return the color of the hit object
      */
@@ -57,7 +54,7 @@ public class BasicRayTracer extends RayTracerBase {
 
     /***
      * calculate the color of point
-     * @return  the color of point
+     * @return the color of point
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
         Color color = scene.ambientLight.getIntensity()
@@ -84,10 +81,7 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /***
-     *
-     * @param point
-     * @param v
-     * @param n
+     * This function calculation the Refracted Ray
      * @return new ray for the rafracted
      */
     private List<Ray> constructRefractedRay(Point3D point, Vector v, Vector n) {
@@ -134,10 +128,7 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /***
-     *
-     * @param point
-     * @param v
-     * @param n
+     * This function calculation the Reflected Ray
      * @return new ray for the reflected
      */
     private List<Ray> constructReflectedRay(Point3D point, Vector v, Vector n) {
@@ -189,11 +180,10 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
-     *
-     * @param ray
-     * @param level
-     * @param kx
-     * @param kkx
+     * @param ray beam of ray
+     * @param level level of recursion
+     * @param kx  multiplicative number
+     * @param kkx min calc color
      * @return color with global effect
      */
     private Color calcGlobalEffect(List<Ray> ray, int level, double kx, double kkx) {
@@ -206,10 +196,9 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
-     *
      * @param geopoint
      * @param inRay
-     * @param k
+     * @param k min calc color
      * @return color with local effect
      */
     private Color calcLocalEffects(GeoPoint geopoint, Ray inRay, double k) {
@@ -238,9 +227,10 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * help function that calculates the diffusion for each object
-     * @param kd diffusion coefficient of diffusion
-     * @param l the vector from the light source
-     * @param n the normal of the object
+     *
+     * @param kd             diffusion coefficient of diffusion
+     * @param l              the vector from the light source
+     * @param n              the normal of the object
      * @param lightIntensity the intensity of the light
      * @return
      */
@@ -251,11 +241,12 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * help function that calculates the specular for each object
-     * @param ks the discount factor of the specular
-     * @param l the vector from the light source
-     * @param n the normal of the object
-     * @param v the vector from the camera
-     * @param nShininess the value of the Shininess of the material
+     *
+     * @param ks             the discount factor of the specular
+     * @param l              the vector from the light source
+     * @param n              the normal of the object
+     * @param v              the vector from the camera
+     * @param nShininess     the value of the Shininess of the material
      * @param lightIntensity the intensity of the light
      * @return
      */
@@ -267,9 +258,10 @@ public class BasicRayTracer extends RayTracerBase {
 
     /**
      * check if there is a particular shadow on a particular point
-     * @param light  LightSource
-     * @param l the vector from the light source
-     * @param n the normal of the object
+     *
+     * @param light    LightSource
+     * @param l        the vector from the light source
+     * @param n        the normal of the object
      * @param geopoint
      * @return
      */
@@ -287,7 +279,14 @@ public class BasicRayTracer extends RayTracerBase {
         return true;
     }
 
-
+    /**
+     * calculate factor of transparency for a given material
+     * @param light    LightSource
+     * @param l        the vector from the light source
+     * @param n        the normal of the object
+     * @param geoPoint
+     * @return factor of transparency
+     */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
@@ -295,8 +294,8 @@ public class BasicRayTracer extends RayTracerBase {
         // if the light source is Directional, there isn't softshadow
         if (light instanceof DirectionalLight || !SOFT_SHADOW) {
             double lightDistance = light.getDistance(geoPoint.point);
-           // var intersections = improvementIntersection(lightRay, Double.POSITIVE_INFINITY);
-             var intersections = scene.geometries.findGeoIntersections(lightRay);
+            // var intersections = improvementIntersection(lightRay, Double.POSITIVE_INFINITY);
+            var intersections = scene.geometries.findGeoIntersections(lightRay);
             if (intersections == null) return 1.0;
             double ktr = 1.0;
             for (GeoPoint gp : intersections) {
@@ -317,11 +316,7 @@ public class BasicRayTracer extends RayTracerBase {
             boolean flagIntersection = false;
 
             for (Ray r : listRay) {
-                    List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
-
-
-             //   List<GeoPoint> intersecOneRay = improvementIntersection(r, lightDistance);
-
+                List<GeoPoint> intersecOneRay = scene.geometries.findGeoIntersections(r, lightDistance);
                 // if the ray 'r' don't crosses any geometries, it's like it crosses geometries transparent
                 if (intersecOneRay == null) ktr = 1.0;
                 else {
@@ -345,30 +340,22 @@ public class BasicRayTracer extends RayTracerBase {
             return ktrAverage;
         }
     }
+
     /**
      * Finds the closest point to the beginning of the ray
-     * @param ray
+     * @param ray sended ray
      * @return the closest point to the beginning of the ray
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> gp = scene.geometries.findGeoIntersections(ray);
-     //   List<GeoPoint> intersectionPoints = improvementIntersection(ray, Double.POSITIVE_INFINITY);
-
         GeoPoint closestPoint = ray.findClosestGeoPoint(gp);
-      //  if (closestPoint == null || !ALGO_IMPROV)
-      //      return closestPoint;
-//
-      //  double distanceToLastPoint = gp.get(0).point.distance(ray.getP0());
-      //  if (distanceToLastPoint < Double.POSITIVE_INFINITY) {
-      //      closestPoint = gp.get(0);
-      //  }
         return closestPoint;
     }
 
     /***
      * This function return the vertical vector
-     * @param ray
-     * @return
+     * @param ray sended ray
+     * @return vector
      */
     private Vector Ver(Ray ray) {
         double x = ray.getDir().getHead().getX();
@@ -391,7 +378,7 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
-     *  calculate the avarage color of pixel
+     * calculate the avarage color of pixel
      * @param list
      * @return the avarage color
      */
@@ -412,47 +399,6 @@ public class BasicRayTracer extends RayTracerBase {
 
         return new Color((int) r, (int) g, (int) b);
     }
-
-   ///**
-   // * this function calculate intersections points after the improvement
-   // *
-   // * @param ray ray of the light
-   // * @param max distance max
-   // * @return intersectionPoints
-   // */
-   //private List<GeoPoint> improvementIntersection(Ray ray, double max) {
-
-   //    Scene.Node<Geometries> root = scene.getGeometriesTree();
-   ///        List<Intersectable> box =root.getData().getGeometries();
-   //    Geometries box2 = root.getData();
-
-   //    // check intersection with the Outer Box containing all geometries of the scene
-   //    List<GeoPoint> intersectionPointsWithOuterBox = box2.findGeoIntersections(ray, max);
-   //    if (intersectionPointsWithOuterBox == null || !ALGO_IMPROV)
-   //        return scene.getGeometries().findGeoIntersections(ray, max);
-
-   //    //return _scene.getGeometries().findGeoIntersections(ray, max);
-
-   //    List<GeoPoint> interPointsWithInnerBox = null;
-   //    List<GeoPoint> intersectionPointsWithGeometries = null;
-   //    List<Scene.Node<Geometries>> children = scene.getGeometriesTree().getChildren();
-   //    for (Scene.Node<Geometries> g : children) {
-   //        interPointsWithInnerBox = g.getData().findGeoIntersections(ray, max);
-   //        if (interPointsWithInnerBox != null) {
-   //            List<GeoPoint> interPointsGeometry = g.getChildren().get(0).getData().findGeoIntersections(ray, max);
-   //            if (interPointsGeometry != null) {
-   //                //initialization of the list for the first intersection's point with the geometry
-   //                if (intersectionPointsWithGeometries == null)//
-   //                    intersectionPointsWithGeometries = new ArrayList();
-   //                for (GeoPoint gp : interPointsGeometry)
-   //                    intersectionPointsWithGeometries.add(gp);
-   //            }
-   //        }
-   //    }
-   //    return intersectionPointsWithGeometries;
-   //}
-
-
 }
 
 

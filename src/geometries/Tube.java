@@ -30,7 +30,6 @@ public class Tube extends Geometry {
 
     /**
      * getter
-     *
      * @return radius
      */
     public Double getRadius() {
@@ -39,7 +38,6 @@ public class Tube extends Geometry {
 
     /**
      * getter
-     *
      * @return axisRay
      */
     public Ray getAxisRay() {

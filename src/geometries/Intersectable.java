@@ -120,14 +120,9 @@ public abstract class Intersectable {
 
     /**
      * Calculates the points of intersection
-     *
      * @param ray
      * @return list of the points of intersection
      */
-   // default List<Point3D> findIntersections(Ray ray) {
-   //     public abstract List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance);
-   // }
-
     public List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
@@ -233,12 +228,4 @@ public abstract class Intersectable {
 
         return true;
     }
-    // double getXmin();
-    // double getYmin();
-    // double getZmin();
-    // double getXmax();
-    // double getYmax();
-    // double getZmax();
-
-
 }

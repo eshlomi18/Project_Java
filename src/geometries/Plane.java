@@ -38,13 +38,6 @@ public class Plane extends Geometry {
         Vector N = U.crossProduct(V);
         N.normalize();
         this.normal = N;
-
-      // Xmax = MAX;
-      // Ymax = MAX;
-      // Zmax = MAX;
-      // Xmin = MIN;
-      // Ymin = MIN;
-      // Zmin = MIN;
     }
 
     /**

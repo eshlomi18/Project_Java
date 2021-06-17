@@ -31,9 +31,9 @@ public class PointLight extends Light implements LightSource {
      *constructor
      * @param intensity
      * @param position
-     * @param kC
-     * @param kL
-     * @param kQ
+     * @param kC distance attenuator
+     * @param kL distance attenuator
+     * @param kQ distance attenuator
      */
     public PointLight(Color intensity, Point3D position, double kC, double kL, double kQ) {
         super(intensity);
@@ -61,7 +61,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * getter - find the dirction of the light that went to from the point light to the shape
-     * @param p
+     * @param p the point of the shape the light arrived
      * @return normal vector from p to position
      */
     @Override
@@ -71,7 +71,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * getter- get the distance for the point light after calculate
-     * @param p
+     * @param p the point of the shape the light arrived
      * @return the distance between position and p
      */
     @Override
@@ -90,7 +90,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * setter
-     * @param kC
+     * @param kC distance attenuators
      * @return
      */
     public PointLight setkC(double kC) {
@@ -100,7 +100,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * setter
-     * @param kL
+     * @param kL distance attenuator
      * @return
      */
     public PointLight setKl(double kL) {
@@ -110,7 +110,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * setter
-     * @param kQ
+     * @param kQ distance attenuator
      * @return
      */
     public PointLight setKq(double kQ) {
