@@ -19,5 +19,14 @@
  ![](reflectionTwoSpheresMirrored.png)
  ## algorithm improvement
 since after these improvement the execution time was pretty long we have made our program running on 3 threads and we have improved our algorithm (based on box)
-### pictures before and after algorithme improvement:(comming soon)
+### pictures before and after algorithme improvement:(more comming soon)
+
+before:
+
+![](95965161.PNG)
+
+after:
+
+![](fin1.PNG)
+
 
