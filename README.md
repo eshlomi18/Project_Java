@@ -37,5 +37,7 @@ dog:
 
 ![photo_2021-06-21_21-46-58](https://user-images.githubusercontent.com/79382335/122812664-a05bb400-d2da-11eb-98fe-352b8b393c4b.jpg)
 
+final picture with improvements:(soon)
+
 
 
