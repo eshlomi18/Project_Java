@@ -1,5 +1,5 @@
 # Mini Project java 2021
-
+ (bonus 2pt)
  this program gives the possibilitie to build an image based on the following parameters:
  - camera
  - lights (ambiant,spot,point)
