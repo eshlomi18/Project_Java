@@ -36,6 +36,6 @@ final picture without improvements:
 
 final picture with improvements:
 
-![sofit.jpg]
+![](sofit.jpg)
 
 
