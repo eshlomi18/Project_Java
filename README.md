@@ -29,12 +29,12 @@ after:
 
 ![](fin1.PNG)
 
-final picture without improvements:
+final picture mini project 1 without improvements:
 
 ![photo_2021-06-21_21-46-55](https://user-images.githubusercontent.com/79382335/122812628-95a11f00-d2da-11eb-96c4-cd3f3279ec3c.jpg)
 
 
-final picture with improvements:
+final picture mini project 2 with improvements:
 
 ![](sofit.jpg)
 
